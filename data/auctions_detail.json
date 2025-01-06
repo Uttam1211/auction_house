@@ -1,0 +1,1452 @@
+[
+  {
+    "id": "1",
+    "title": "Fine Art Auction 1",
+    "description": "A curated collection of famous art pieces for Auction 1.",
+    "startDate": "2024-08-01T10:00:00Z",
+    "endDate": "2024-03-15T18:00:00Z",
+    "image": "/placeholder.svg",
+    "auctioneer": "Jane Smith",
+    "location": "Paris",
+    "noOfLots": 17,
+    "lots": [
+      {
+        "id": "101",
+        "title": "The Scream",
+        "artist": "Edvard Munch",
+        "estimatedPrice": "168163-660051",
+        "currentBid": 589562,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "102",
+        "title": "Mona Lisa",
+        "artist": "Leonardo da Vinci",
+        "estimatedPrice": "301078-974377",
+        "currentBid": 518274,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "103",
+        "title": "Guernica",
+        "artist": "Pablo Picasso",
+        "estimatedPrice": "148789-904126",
+        "currentBid": 674120,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "104",
+        "title": "The Night Watch",
+        "artist": "Rembrandt",
+        "estimatedPrice": "442371-776435",
+        "currentBid": 761732,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "105",
+        "title": "The Creation of Adam",
+        "artist": "Michelangelo",
+        "estimatedPrice": "171986-678593",
+        "currentBid": 380056,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "106",
+        "title": "Girl with a Pearl Earring",
+        "artist": "Johannes Vermeer",
+        "estimatedPrice": "478081-639327",
+        "currentBid": 530184,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "107",
+        "title": "The Birth of Venus",
+        "artist": "Sandro Botticelli",
+        "estimatedPrice": "106425-553857",
+        "currentBid": 816752,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "108",
+        "title": "Guernica",
+        "artist": "Pablo Picasso",
+        "estimatedPrice": "215052-536899",
+        "currentBid": 355215,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "109",
+        "title": "The Persistence of Memory",
+        "artist": "Salvador Dal\u00ed",
+        "estimatedPrice": "470230-803061",
+        "currentBid": 668384,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "110",
+        "title": "Girl with a Pearl Earring",
+        "artist": "Johannes Vermeer",
+        "estimatedPrice": "356389-536551",
+        "currentBid": 767940,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "111",
+        "title": "Starry Night",
+        "artist": "Vincent van Gogh",
+        "estimatedPrice": "297018-932919",
+        "currentBid": 817685,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "112",
+        "title": "The Birth of Venus",
+        "artist": "Sandro Botticelli",
+        "estimatedPrice": "182368-796441",
+        "currentBid": 764918,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "113",
+        "title": "Mona Lisa",
+        "artist": "Leonardo da Vinci",
+        "estimatedPrice": "342844-965573",
+        "currentBid": 691892,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "114",
+        "title": "The Birth of Venus",
+        "artist": "Sandro Botticelli",
+        "estimatedPrice": "499551-665868",
+        "currentBid": 350482,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "115",
+        "title": "Mona Lisa",
+        "artist": "Leonardo da Vinci",
+        "estimatedPrice": "235549-509607",
+        "currentBid": 479837,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "116",
+        "title": "American Gothic",
+        "artist": "Grant Wood",
+        "estimatedPrice": "378348-628371",
+        "currentBid": 714802,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "117",
+        "title": "The Scream",
+        "artist": "Edvard Munch",
+        "estimatedPrice": "165437-761852",
+        "currentBid": 498439,
+        "image": "/placeholder.svg"
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "title": "Fine Art Auction 2",
+    "description": "A curated collection of famous art pieces for Auction 2.",
+    "startDate": "2024-10-01T10:00:00Z",
+    "endDate": "2024-12-15T18:00:00Z",
+    "image": "/placeholder.svg",
+    "auctioneer": "Emily Davis",
+    "location": "Paris",
+    "noOfLots": 18,
+    "lots": [
+      {
+        "id": "201",
+        "title": "Girl with a Pearl Earring",
+        "artist": "Johannes Vermeer",
+        "estimatedPrice": "197634-748290",
+        "currentBid": 701866,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "202",
+        "title": "The Scream",
+        "artist": "Edvard Munch",
+        "estimatedPrice": "406194-890133",
+        "currentBid": 383274,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "203",
+        "title": "The Night Watch",
+        "artist": "Rembrandt",
+        "estimatedPrice": "118606-584433",
+        "currentBid": 163153,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "204",
+        "title": "The Night Watch",
+        "artist": "Rembrandt",
+        "estimatedPrice": "297815-890771",
+        "currentBid": 458551,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "205",
+        "title": "Guernica",
+        "artist": "Pablo Picasso",
+        "estimatedPrice": "460762-677943",
+        "currentBid": 889246,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "206",
+        "title": "Mona Lisa",
+        "artist": "Leonardo da Vinci",
+        "estimatedPrice": "337562-822565",
+        "currentBid": 730374,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "207",
+        "title": "Girl with a Pearl Earring",
+        "artist": "Johannes Vermeer",
+        "estimatedPrice": "195066-786002",
+        "currentBid": 539222,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "208",
+        "title": "The Birth of Venus",
+        "artist": "Sandro Botticelli",
+        "estimatedPrice": "487658-825258",
+        "currentBid": 577350,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "209",
+        "title": "The Night Watch",
+        "artist": "Rembrandt",
+        "estimatedPrice": "496736-906274",
+        "currentBid": 568617,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "210",
+        "title": "Mona Lisa",
+        "artist": "Leonardo da Vinci",
+        "estimatedPrice": "342642-721404",
+        "currentBid": 669397,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "211",
+        "title": "Starry Night",
+        "artist": "Vincent van Gogh",
+        "estimatedPrice": "236353-679749",
+        "currentBid": 611219,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "212",
+        "title": "Starry Night",
+        "artist": "Vincent van Gogh",
+        "estimatedPrice": "219616-590991",
+        "currentBid": 882380,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "213",
+        "title": "The Scream",
+        "artist": "Edvard Munch",
+        "estimatedPrice": "423736-862603",
+        "currentBid": 333084,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "214",
+        "title": "Mona Lisa",
+        "artist": "Leonardo da Vinci",
+        "estimatedPrice": "229228-520598",
+        "currentBid": 189398,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "215",
+        "title": "Guernica",
+        "artist": "Pablo Picasso",
+        "estimatedPrice": "158833-807786",
+        "currentBid": 331364,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "216",
+        "title": "The Birth of Venus",
+        "artist": "Sandro Botticelli",
+        "estimatedPrice": "139761-603157",
+        "currentBid": 684781,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "217",
+        "title": "Mona Lisa",
+        "artist": "Leonardo da Vinci",
+        "estimatedPrice": "359356-501708",
+        "currentBid": 587144,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "218",
+        "title": "The Creation of Adam",
+        "artist": "Michelangelo",
+        "estimatedPrice": "142481-728785",
+        "currentBid": 516962,
+        "image": "/placeholder.svg"
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "title": "Fine Art Auction 3",
+    "description": "A curated collection of famous art pieces for Auction 3.",
+    "startDate": "2024-03-01T10:00:00Z",
+    "endDate": "2024-02-15T18:00:00Z",
+    "image": "/placeholder.svg",
+    "auctioneer": "Jane Smith",
+    "location": "London",
+    "noOfLots": 15,
+    "lots": [
+      {
+        "id": "301",
+        "title": "The Birth of Venus",
+        "artist": "Sandro Botticelli",
+        "estimatedPrice": "130067-592504",
+        "currentBid": 682510,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "302",
+        "title": "The Night Watch",
+        "artist": "Rembrandt",
+        "estimatedPrice": "481819-677926",
+        "currentBid": 143204,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "303",
+        "title": "The Persistence of Memory",
+        "artist": "Salvador Dal\u00ed",
+        "estimatedPrice": "191310-624568",
+        "currentBid": 137839,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "304",
+        "title": "The Scream",
+        "artist": "Edvard Munch",
+        "estimatedPrice": "323938-622000",
+        "currentBid": 412358,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "305",
+        "title": "The Birth of Venus",
+        "artist": "Sandro Botticelli",
+        "estimatedPrice": "474150-627372",
+        "currentBid": 165549,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "306",
+        "title": "Girl with a Pearl Earring",
+        "artist": "Johannes Vermeer",
+        "estimatedPrice": "409292-718233",
+        "currentBid": 590868,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "307",
+        "title": "Girl with a Pearl Earring",
+        "artist": "Johannes Vermeer",
+        "estimatedPrice": "292308-904113",
+        "currentBid": 144099,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "308",
+        "title": "The Scream",
+        "artist": "Edvard Munch",
+        "estimatedPrice": "324821-643514",
+        "currentBid": 176299,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "309",
+        "title": "The Persistence of Memory",
+        "artist": "Salvador Dal\u00ed",
+        "estimatedPrice": "126217-529760",
+        "currentBid": 496026,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "310",
+        "title": "The Scream",
+        "artist": "Edvard Munch",
+        "estimatedPrice": "133356-583202",
+        "currentBid": 215461,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "311",
+        "title": "Guernica",
+        "artist": "Pablo Picasso",
+        "estimatedPrice": "137281-599181",
+        "currentBid": 479593,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "312",
+        "title": "Girl with a Pearl Earring",
+        "artist": "Johannes Vermeer",
+        "estimatedPrice": "181534-898525",
+        "currentBid": 713681,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "313",
+        "title": "Starry Night",
+        "artist": "Vincent van Gogh",
+        "estimatedPrice": "228801-595627",
+        "currentBid": 300388,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "314",
+        "title": "The Birth of Venus",
+        "artist": "Sandro Botticelli",
+        "estimatedPrice": "195899-974585",
+        "currentBid": 792322,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "315",
+        "title": "The Night Watch",
+        "artist": "Rembrandt",
+        "estimatedPrice": "451586-574974",
+        "currentBid": 753921,
+        "image": "/placeholder.svg"
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "title": "Fine Art Auction 4",
+    "description": "A curated collection of famous art pieces for Auction 4.",
+    "startDate": "2024-03-01T10:00:00Z",
+    "endDate": "2024-06-15T18:00:00Z",
+    "image": "/placeholder.svg",
+    "auctioneer": "Jane Smith",
+    "location": "New York City",
+    "noOfLots": 15,
+    "lots": [
+      {
+        "id": "401",
+        "title": "The Persistence of Memory",
+        "artist": "Salvador Dal\u00ed",
+        "estimatedPrice": "221205-530828",
+        "currentBid": 833879,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "402",
+        "title": "American Gothic",
+        "artist": "Grant Wood",
+        "estimatedPrice": "315898-566016",
+        "currentBid": 885940,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "403",
+        "title": "The Birth of Venus",
+        "artist": "Sandro Botticelli",
+        "estimatedPrice": "268821-564559",
+        "currentBid": 456399,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "404",
+        "title": "Guernica",
+        "artist": "Pablo Picasso",
+        "estimatedPrice": "118278-780003",
+        "currentBid": 154460,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "405",
+        "title": "Girl with a Pearl Earring",
+        "artist": "Johannes Vermeer",
+        "estimatedPrice": "112697-659433",
+        "currentBid": 777109,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "406",
+        "title": "Girl with a Pearl Earring",
+        "artist": "Johannes Vermeer",
+        "estimatedPrice": "132381-877551",
+        "currentBid": 167742,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "407",
+        "title": "American Gothic",
+        "artist": "Grant Wood",
+        "estimatedPrice": "216927-546870",
+        "currentBid": 830479,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "408",
+        "title": "The Scream",
+        "artist": "Edvard Munch",
+        "estimatedPrice": "492642-924540",
+        "currentBid": 136545,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "409",
+        "title": "The Birth of Venus",
+        "artist": "Sandro Botticelli",
+        "estimatedPrice": "204844-726126",
+        "currentBid": 946181,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "410",
+        "title": "American Gothic",
+        "artist": "Grant Wood",
+        "estimatedPrice": "101490-777667",
+        "currentBid": 279926,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "411",
+        "title": "American Gothic",
+        "artist": "Grant Wood",
+        "estimatedPrice": "490599-859017",
+        "currentBid": 403823,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "412",
+        "title": "The Night Watch",
+        "artist": "Rembrandt",
+        "estimatedPrice": "419601-648904",
+        "currentBid": 790320,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "413",
+        "title": "American Gothic",
+        "artist": "Grant Wood",
+        "estimatedPrice": "410911-750900",
+        "currentBid": 212709,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "414",
+        "title": "Girl with a Pearl Earring",
+        "artist": "Johannes Vermeer",
+        "estimatedPrice": "147029-890565",
+        "currentBid": 544359,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "415",
+        "title": "Girl with a Pearl Earring",
+        "artist": "Johannes Vermeer",
+        "estimatedPrice": "480273-811775",
+        "currentBid": 971789,
+        "image": "/placeholder.svg"
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "title": "Fine Art Auction 5",
+    "description": "A curated collection of famous art pieces for Auction 5.",
+    "startDate": "2024-03-01T10:00:00Z",
+    "endDate": "2024-04-15T18:00:00Z",
+    "image": "/placeholder.svg",
+    "auctioneer": "Robert Johnson",
+    "location": "London",
+    "noOfLots": 20,
+    "lots": [
+      {
+        "id": "501",
+        "title": "Girl with a Pearl Earring",
+        "artist": "Johannes Vermeer",
+        "estimatedPrice": "152605-837493",
+        "currentBid": 317612,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "502",
+        "title": "The Night Watch",
+        "artist": "Rembrandt",
+        "estimatedPrice": "423095-818371",
+        "currentBid": 636973,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "503",
+        "title": "Mona Lisa",
+        "artist": "Leonardo da Vinci",
+        "estimatedPrice": "269821-928479",
+        "currentBid": 527624,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "504",
+        "title": "Guernica",
+        "artist": "Pablo Picasso",
+        "estimatedPrice": "239893-677106",
+        "currentBid": 640517,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "505",
+        "title": "The Persistence of Memory",
+        "artist": "Salvador Dal\u00ed",
+        "estimatedPrice": "212029-713777",
+        "currentBid": 605399,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "506",
+        "title": "The Persistence of Memory",
+        "artist": "Salvador Dal\u00ed",
+        "estimatedPrice": "244145-548837",
+        "currentBid": 665787,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "507",
+        "title": "The Birth of Venus",
+        "artist": "Sandro Botticelli",
+        "estimatedPrice": "481839-625408",
+        "currentBid": 773352,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "508",
+        "title": "Girl with a Pearl Earring",
+        "artist": "Johannes Vermeer",
+        "estimatedPrice": "114697-775990",
+        "currentBid": 449655,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "509",
+        "title": "The Persistence of Memory",
+        "artist": "Salvador Dal\u00ed",
+        "estimatedPrice": "416736-994224",
+        "currentBid": 160701,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "510",
+        "title": "American Gothic",
+        "artist": "Grant Wood",
+        "estimatedPrice": "283221-768690",
+        "currentBid": 392370,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "511",
+        "title": "Mona Lisa",
+        "artist": "Leonardo da Vinci",
+        "estimatedPrice": "487631-616629",
+        "currentBid": 879546,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "512",
+        "title": "Mona Lisa",
+        "artist": "Leonardo da Vinci",
+        "estimatedPrice": "461043-787718",
+        "currentBid": 522725,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "513",
+        "title": "Girl with a Pearl Earring",
+        "artist": "Johannes Vermeer",
+        "estimatedPrice": "432724-953526",
+        "currentBid": 983272,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "514",
+        "title": "The Night Watch",
+        "artist": "Rembrandt",
+        "estimatedPrice": "485947-545269",
+        "currentBid": 594073,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "515",
+        "title": "The Creation of Adam",
+        "artist": "Michelangelo",
+        "estimatedPrice": "335358-560661",
+        "currentBid": 910862,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "516",
+        "title": "Mona Lisa",
+        "artist": "Leonardo da Vinci",
+        "estimatedPrice": "497809-836992",
+        "currentBid": 344593,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "517",
+        "title": "The Creation of Adam",
+        "artist": "Michelangelo",
+        "estimatedPrice": "142918-606266",
+        "currentBid": 620056,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "518",
+        "title": "Starry Night",
+        "artist": "Vincent van Gogh",
+        "estimatedPrice": "169447-658986",
+        "currentBid": 718876,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "519",
+        "title": "Starry Night",
+        "artist": "Vincent van Gogh",
+        "estimatedPrice": "432399-651720",
+        "currentBid": 134875,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "520",
+        "title": "The Scream",
+        "artist": "Edvard Munch",
+        "estimatedPrice": "104995-602033",
+        "currentBid": 366542,
+        "image": "/placeholder.svg"
+      }
+    ]
+  },
+  {
+    "id": "6",
+    "title": "Fine Art Auction 6",
+    "description": "A curated collection of famous art pieces for Auction 6.",
+    "startDate": "2024-09-01T10:00:00Z",
+    "endDate": "2024-05-15T18:00:00Z",
+    "image": "/placeholder.svg",
+    "auctioneer": "Robert Johnson",
+    "location": "Paris",
+    "noOfLots": 15,
+    "lots": [
+      {
+        "id": "601",
+        "title": "The Creation of Adam",
+        "artist": "Michelangelo",
+        "estimatedPrice": "417568-881132",
+        "currentBid": 603708,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "602",
+        "title": "The Scream",
+        "artist": "Edvard Munch",
+        "estimatedPrice": "347084-844529",
+        "currentBid": 749773,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "603",
+        "title": "The Persistence of Memory",
+        "artist": "Salvador Dal\u00ed",
+        "estimatedPrice": "118099-580608",
+        "currentBid": 650152,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "604",
+        "title": "The Creation of Adam",
+        "artist": "Michelangelo",
+        "estimatedPrice": "357569-561309",
+        "currentBid": 731600,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "605",
+        "title": "The Scream",
+        "artist": "Edvard Munch",
+        "estimatedPrice": "318815-604329",
+        "currentBid": 484247,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "606",
+        "title": "Mona Lisa",
+        "artist": "Leonardo da Vinci",
+        "estimatedPrice": "165984-809642",
+        "currentBid": 763092,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "607",
+        "title": "The Scream",
+        "artist": "Edvard Munch",
+        "estimatedPrice": "316959-962966",
+        "currentBid": 526350,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "608",
+        "title": "The Persistence of Memory",
+        "artist": "Salvador Dal\u00ed",
+        "estimatedPrice": "231217-863245",
+        "currentBid": 141467,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "609",
+        "title": "The Creation of Adam",
+        "artist": "Michelangelo",
+        "estimatedPrice": "363804-993463",
+        "currentBid": 587756,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "610",
+        "title": "The Birth of Venus",
+        "artist": "Sandro Botticelli",
+        "estimatedPrice": "320122-502749",
+        "currentBid": 310596,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "611",
+        "title": "The Night Watch",
+        "artist": "Rembrandt",
+        "estimatedPrice": "304892-756779",
+        "currentBid": 166296,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "612",
+        "title": "Girl with a Pearl Earring",
+        "artist": "Johannes Vermeer",
+        "estimatedPrice": "106956-616793",
+        "currentBid": 503002,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "613",
+        "title": "The Scream",
+        "artist": "Edvard Munch",
+        "estimatedPrice": "267374-816133",
+        "currentBid": 384405,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "614",
+        "title": "Guernica",
+        "artist": "Pablo Picasso",
+        "estimatedPrice": "360422-836240",
+        "currentBid": 210596,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "615",
+        "title": "Starry Night",
+        "artist": "Vincent van Gogh",
+        "estimatedPrice": "455507-892606",
+        "currentBid": 716971,
+        "image": "/placeholder.svg"
+      }
+    ]
+  },
+  {
+    "id": "7",
+    "title": "Fine Art Auction 7",
+    "description": "A curated collection of famous art pieces for Auction 7.",
+    "startDate": "2024-06-01T10:00:00Z",
+    "endDate": "2024-09-15T18:00:00Z",
+    "image": "/placeholder.svg",
+    "auctioneer": "Robert Johnson",
+    "location": "New York City",
+    "noOfLots": 15,
+    "lots": [
+      {
+        "id": "701",
+        "title": "Mona Lisa",
+        "artist": "Leonardo da Vinci",
+        "estimatedPrice": "175486-883272",
+        "currentBid": 645959,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "702",
+        "title": "Guernica",
+        "artist": "Pablo Picasso",
+        "estimatedPrice": "207233-900914",
+        "currentBid": 612296,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "703",
+        "title": "Mona Lisa",
+        "artist": "Leonardo da Vinci",
+        "estimatedPrice": "108974-668817",
+        "currentBid": 205159,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "704",
+        "title": "American Gothic",
+        "artist": "Grant Wood",
+        "estimatedPrice": "385129-853903",
+        "currentBid": 441499,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "705",
+        "title": "The Creation of Adam",
+        "artist": "Michelangelo",
+        "estimatedPrice": "423620-896138",
+        "currentBid": 297276,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "706",
+        "title": "The Night Watch",
+        "artist": "Rembrandt",
+        "estimatedPrice": "224632-921435",
+        "currentBid": 269011,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "707",
+        "title": "Mona Lisa",
+        "artist": "Leonardo da Vinci",
+        "estimatedPrice": "264089-758784",
+        "currentBid": 949917,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "708",
+        "title": "The Night Watch",
+        "artist": "Rembrandt",
+        "estimatedPrice": "273530-914874",
+        "currentBid": 864111,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "709",
+        "title": "Girl with a Pearl Earring",
+        "artist": "Johannes Vermeer",
+        "estimatedPrice": "183628-967512",
+        "currentBid": 671925,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "710",
+        "title": "Girl with a Pearl Earring",
+        "artist": "Johannes Vermeer",
+        "estimatedPrice": "488432-698156",
+        "currentBid": 332469,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "711",
+        "title": "Mona Lisa",
+        "artist": "Leonardo da Vinci",
+        "estimatedPrice": "498208-883013",
+        "currentBid": 623968,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "712",
+        "title": "American Gothic",
+        "artist": "Grant Wood",
+        "estimatedPrice": "238910-944732",
+        "currentBid": 421113,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "713",
+        "title": "The Creation of Adam",
+        "artist": "Michelangelo",
+        "estimatedPrice": "188948-639177",
+        "currentBid": 200917,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "714",
+        "title": "American Gothic",
+        "artist": "Grant Wood",
+        "estimatedPrice": "256908-945723",
+        "currentBid": 626031,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "715",
+        "title": "The Birth of Venus",
+        "artist": "Sandro Botticelli",
+        "estimatedPrice": "178414-622476",
+        "currentBid": 643595,
+        "image": "/placeholder.svg"
+      }
+    ]
+  },
+  {
+    "id": "8",
+    "title": "Fine Art Auction 8",
+    "description": "A curated collection of famous art pieces for Auction 8.",
+    "startDate": "2024-07-01T10:00:00Z",
+    "endDate": "2024-07-15T18:00:00Z",
+    "image": "/placeholder.svg",
+    "auctioneer": "Jane Smith",
+    "location": "London",
+    "noOfLots": 15,
+    "lots": [
+      {
+        "id": "801",
+        "title": "The Scream",
+        "artist": "Edvard Munch",
+        "estimatedPrice": "251889-532478",
+        "currentBid": 407454,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "802",
+        "title": "The Persistence of Memory",
+        "artist": "Salvador Dal\u00ed",
+        "estimatedPrice": "391439-651920",
+        "currentBid": 667105,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "803",
+        "title": "The Night Watch",
+        "artist": "Rembrandt",
+        "estimatedPrice": "405462-573698",
+        "currentBid": 590857,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "804",
+        "title": "The Persistence of Memory",
+        "artist": "Salvador Dal\u00ed",
+        "estimatedPrice": "433131-873618",
+        "currentBid": 733815,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "805",
+        "title": "American Gothic",
+        "artist": "Grant Wood",
+        "estimatedPrice": "347677-709651",
+        "currentBid": 753735,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "806",
+        "title": "The Birth of Venus",
+        "artist": "Sandro Botticelli",
+        "estimatedPrice": "118447-505559",
+        "currentBid": 513625,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "807",
+        "title": "Starry Night",
+        "artist": "Vincent van Gogh",
+        "estimatedPrice": "115944-572627",
+        "currentBid": 520624,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "808",
+        "title": "The Creation of Adam",
+        "artist": "Michelangelo",
+        "estimatedPrice": "475648-729292",
+        "currentBid": 965141,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "809",
+        "title": "Starry Night",
+        "artist": "Vincent van Gogh",
+        "estimatedPrice": "335009-628387",
+        "currentBid": 376871,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "810",
+        "title": "The Scream",
+        "artist": "Edvard Munch",
+        "estimatedPrice": "118372-637980",
+        "currentBid": 144990,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "811",
+        "title": "Starry Night",
+        "artist": "Vincent van Gogh",
+        "estimatedPrice": "127932-897419",
+        "currentBid": 922375,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "812",
+        "title": "The Scream",
+        "artist": "Edvard Munch",
+        "estimatedPrice": "270935-999428",
+        "currentBid": 936950,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "813",
+        "title": "Mona Lisa",
+        "artist": "Leonardo da Vinci",
+        "estimatedPrice": "194801-694674",
+        "currentBid": 374553,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "814",
+        "title": "Mona Lisa",
+        "artist": "Leonardo da Vinci",
+        "estimatedPrice": "152421-695268",
+        "currentBid": 386221,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "815",
+        "title": "Guernica",
+        "artist": "Pablo Picasso",
+        "estimatedPrice": "351045-822876",
+        "currentBid": 540657,
+        "image": "/placeholder.svg"
+      }
+    ]
+  },
+  {
+    "id": "9",
+    "title": "Fine Art Auction 9",
+    "description": "A curated collection of famous art pieces for Auction 9.",
+    "startDate": "2024-08-01T10:00:00Z",
+    "endDate": "2024-10-15T18:00:00Z",
+    "image": "/placeholder.svg",
+    "auctioneer": "John Doe",
+    "location": "Tokyo",
+    "noOfLots": 17,
+    "lots": [
+      {
+        "id": "901",
+        "title": "The Creation of Adam",
+        "artist": "Michelangelo",
+        "estimatedPrice": "409006-841853",
+        "currentBid": 572615,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "902",
+        "title": "American Gothic",
+        "artist": "Grant Wood",
+        "estimatedPrice": "479427-553580",
+        "currentBid": 788468,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "903",
+        "title": "The Night Watch",
+        "artist": "Rembrandt",
+        "estimatedPrice": "482485-871564",
+        "currentBid": 147597,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "904",
+        "title": "Mona Lisa",
+        "artist": "Leonardo da Vinci",
+        "estimatedPrice": "328929-538992",
+        "currentBid": 897693,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "905",
+        "title": "Mona Lisa",
+        "artist": "Leonardo da Vinci",
+        "estimatedPrice": "168764-889562",
+        "currentBid": 170971,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "906",
+        "title": "Mona Lisa",
+        "artist": "Leonardo da Vinci",
+        "estimatedPrice": "303170-542625",
+        "currentBid": 458250,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "907",
+        "title": "The Birth of Venus",
+        "artist": "Sandro Botticelli",
+        "estimatedPrice": "373470-775827",
+        "currentBid": 762375,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "908",
+        "title": "The Creation of Adam",
+        "artist": "Michelangelo",
+        "estimatedPrice": "202462-907466",
+        "currentBid": 609716,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "909",
+        "title": "The Scream",
+        "artist": "Edvard Munch",
+        "estimatedPrice": "365038-955767",
+        "currentBid": 553548,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "910",
+        "title": "Mona Lisa",
+        "artist": "Leonardo da Vinci",
+        "estimatedPrice": "152860-660513",
+        "currentBid": 973599,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "911",
+        "title": "Girl with a Pearl Earring",
+        "artist": "Johannes Vermeer",
+        "estimatedPrice": "149474-930587",
+        "currentBid": 538371,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "912",
+        "title": "The Birth of Venus",
+        "artist": "Sandro Botticelli",
+        "estimatedPrice": "241092-665176",
+        "currentBid": 437312,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "913",
+        "title": "The Birth of Venus",
+        "artist": "Sandro Botticelli",
+        "estimatedPrice": "104236-708913",
+        "currentBid": 846111,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "914",
+        "title": "The Night Watch",
+        "artist": "Rembrandt",
+        "estimatedPrice": "386424-525302",
+        "currentBid": 987051,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "915",
+        "title": "Girl with a Pearl Earring",
+        "artist": "Johannes Vermeer",
+        "estimatedPrice": "440515-943563",
+        "currentBid": 879200,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "916",
+        "title": "Girl with a Pearl Earring",
+        "artist": "Johannes Vermeer",
+        "estimatedPrice": "111599-796282",
+        "currentBid": 394971,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "917",
+        "title": "The Night Watch",
+        "artist": "Rembrandt",
+        "estimatedPrice": "195636-961669",
+        "currentBid": 984322,
+        "image": "/placeholder.svg"
+      }
+    ]
+  },
+  {
+    "id": "10",
+    "title": "Fine Art Auction 10",
+    "description": "A curated collection of famous art pieces for Auction 10.",
+    "startDate": "2024-04-01T10:00:00Z",
+    "endDate": "2024-02-15T18:00:00Z",
+    "image": "/placeholder.svg",
+    "auctioneer": "Robert Johnson",
+    "location": "Paris",
+    "noOfLots": 18,
+    "lots": [
+      {
+        "id": "1001",
+        "title": "The Scream",
+        "artist": "Edvard Munch",
+        "estimatedPrice": "259883-644729",
+        "currentBid": 976170,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "1002",
+        "title": "The Persistence of Memory",
+        "artist": "Salvador Dal\u00ed",
+        "estimatedPrice": "260179-847999",
+        "currentBid": 638079,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "1003",
+        "title": "The Persistence of Memory",
+        "artist": "Salvador Dal\u00ed",
+        "estimatedPrice": "126754-516719",
+        "currentBid": 808601,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "1004",
+        "title": "The Creation of Adam",
+        "artist": "Michelangelo",
+        "estimatedPrice": "251426-787877",
+        "currentBid": 640726,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "1005",
+        "title": "The Persistence of Memory",
+        "artist": "Salvador Dal\u00ed",
+        "estimatedPrice": "341254-722663",
+        "currentBid": 584251,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "1006",
+        "title": "The Persistence of Memory",
+        "artist": "Salvador Dal\u00ed",
+        "estimatedPrice": "171297-619427",
+        "currentBid": 626812,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "1007",
+        "title": "American Gothic",
+        "artist": "Grant Wood",
+        "estimatedPrice": "349830-792681",
+        "currentBid": 676179,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "1008",
+        "title": "Mona Lisa",
+        "artist": "Leonardo da Vinci",
+        "estimatedPrice": "142817-653142",
+        "currentBid": 630860,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "1009",
+        "title": "The Scream",
+        "artist": "Edvard Munch",
+        "estimatedPrice": "403980-734099",
+        "currentBid": 739910,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "1010",
+        "title": "The Creation of Adam",
+        "artist": "Michelangelo",
+        "estimatedPrice": "180568-563964",
+        "currentBid": 854985,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "1011",
+        "title": "American Gothic",
+        "artist": "Grant Wood",
+        "estimatedPrice": "448960-955818",
+        "currentBid": 898408,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "1012",
+        "title": "The Persistence of Memory",
+        "artist": "Salvador Dal\u00ed",
+        "estimatedPrice": "453454-714521",
+        "currentBid": 294053,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "1013",
+        "title": "The Persistence of Memory",
+        "artist": "Salvador Dal\u00ed",
+        "estimatedPrice": "226495-979794",
+        "currentBid": 956615,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "1014",
+        "title": "Girl with a Pearl Earring",
+        "artist": "Johannes Vermeer",
+        "estimatedPrice": "134930-728419",
+        "currentBid": 361396,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "1015",
+        "title": "Guernica",
+        "artist": "Pablo Picasso",
+        "estimatedPrice": "183497-874726",
+        "currentBid": 977741,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "1016",
+        "title": "American Gothic",
+        "artist": "Grant Wood",
+        "estimatedPrice": "232798-873115",
+        "currentBid": 449122,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "1017",
+        "title": "The Creation of Adam",
+        "artist": "Michelangelo",
+        "estimatedPrice": "202503-680606",
+        "currentBid": 784798,
+        "image": "/placeholder.svg"
+      },
+      {
+        "id": "1018",
+        "title": "The Scream",
+        "artist": "Edvard Munch",
+        "estimatedPrice": "401255-931029",
+        "currentBid": 215840,
+        "image": "/placeholder.svg"
+      }
+    ]
+  }
+]

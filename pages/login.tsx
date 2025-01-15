@@ -8,7 +8,7 @@ export default function Page() {
         <Card className="overflow-hidden">
           <CardContent className="grid p-0 md:grid-cols-2">
             <div className={"flex flex-col gap-6"}>
-              <LoginForm />
+              <LoginForm onSubmit={() => {}} />
             </div>
             <AuthImage imageSrc="/globe.svg" altText="Login Image" />
           </CardContent>

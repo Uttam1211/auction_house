@@ -1,0 +1,49 @@
+{
+  "categories": [
+    {
+      "id": "art",
+      "name": "Art",
+      "image": "/images/categories/art.jpg",
+      "subcategories": [
+        { "id": "paintings", "name": "Paintings" },
+        { "id": "prints", "name": "Prints & Multiples" },
+        { "id": "photographs", "name": "Photographs" },
+        { "id": "sculptures", "name": "Sculptures" },
+        { "id": "contemporary", "name": "Contemporary Art" }
+      ]
+    },
+    {
+      "id": "collectibles",
+      "name": "Collectibles",
+      "image": "/images/categories/collectibles.jpg",
+      "subcategories": [
+        { "id": "coins", "name": "Coins & Stamps" },
+        { "id": "memorabilia", "name": "Memorabilia" },
+        { "id": "vintage", "name": "Vintage Items" },
+        { "id": "toys", "name": "Toys & Games" }
+      ]
+    },
+    {
+      "id": "jewelry",
+      "name": "Jewelry",
+      "image": "/images/categories/jewelry.jpg",
+      "subcategories": [
+        { "id": "antique-jewelry", "name": "Antique Jewelry" },
+        { "id": "watches", "name": "Luxury Watches" },
+        { "id": "diamonds", "name": "Diamonds" },
+        { "id": "gemstones", "name": "Gemstones" }
+      ]
+    },
+    {
+      "id": "furniture",
+      "name": "Furniture",
+      "image": "/images/categories/furniture.jpg",
+      "subcategories": [
+        { "id": "antique-furniture", "name": "Antique Furniture" },
+        { "id": "modern", "name": "Modern Design" },
+        { "id": "lighting", "name": "Lighting" },
+        { "id": "decorative", "name": "Decorative Art" }
+      ]
+    }
+  ]
+}

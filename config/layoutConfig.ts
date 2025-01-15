@@ -11,6 +11,7 @@ const layoutConfig: { [key: string]: React.FC<{ children: React.ReactNode }> } =
     "/footer/*": PublicLayout,
     "/auctions": PublicLayout,
     "/auction/*": PublicLayout,
+    "/admin/*": ProtectedLayout,
   };
 
 export default layoutConfig;

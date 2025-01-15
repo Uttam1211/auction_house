@@ -14,10 +14,10 @@ const ProtectedLayout: React.FC<ProtectedLayoutProps> = ({ children }) => {
     <>
       <SidebarProvider>
         <AppSidebar />
-        <main>
+        <>
           <SidebarTrigger />
           {children}
-        </main>
+        </>
       </SidebarProvider>
     </>
   );

@@ -2,7 +2,8 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import layoutConfig from "../config/layoutConfig";
-import Header from "@/components/Header";
+import { UserProvider } from "@/context/UserContext";
+import { ThemeProvider } from "next-themes";
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   // Match layout based on current route or wildcard logic
@@ -16,21 +17,20 @@ function MyApp({ Component, pageProps, router }: AppProps) {
         return layoutConfig[key];
       }
     }
-    // Default layout if no match is found
-    return ({ children }: { children: React.ReactNode }) => (
-      <>
-        <Header />
-        {children}
-      </>
-    );
+    // Default to PublicLayout if no match is found
+    return layoutConfig["/"];
   };
 
   const Layout = getLayout(router.pathname);
 
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <ThemeProvider attribute="class">
+      <UserProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </UserProvider>
+    </ThemeProvider>
   );
 }
 

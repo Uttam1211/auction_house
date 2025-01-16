@@ -1,10 +1,11 @@
 import { cn } from "@/lib/utils";
-import { Auction } from "@/types/auction";
-import { Lot } from "@/types/Lot";
+import { Auction, Lot } from "@prisma/client";
 import { useState } from "react";
 import AuctionLotsTab from "./tabs/AuctionLotsTab";
 import AuctionDetailsTab from "./tabs/AuctionDetailsTab";
 import AuctionConditionsTab from "./tabs/AuctionConditionsTab";
+import AuctionSimilarTab from "./tabs/AuctionSimilarTab";
+import { LotWithCategories } from "@/types/combinationPrismaTypes";
 
 interface FilterState {
   categories: string[];
@@ -23,12 +24,12 @@ interface AuctionTabsProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
-  processedLots: Lot[];
+  processedLots: LotWithCategories[];
   onLotsDataChange: (filters: Partial<FilterState>) => void;
   isLoading: boolean;
 }
 
-type TabType = "lots" | "details" | "conditions";
+type TabType = "lots" | "details" | "conditions" | "similar";
 
 export default function AuctionTabs({
   auction,
@@ -45,6 +46,7 @@ export default function AuctionTabs({
     { id: "lots", label: "LOTS" },
     { id: "details", label: "AUCTION DETAILS" },
     { id: "conditions", label: "CONDITIONS OF BUSINESS" },
+    { id: "similar", label: "SIMILAR AUCTIONS" },
   ] as const;
 
   return (
@@ -73,11 +75,10 @@ export default function AuctionTabs({
       <div className="py-6">
         {activeTab === "lots" && (
           <AuctionLotsTab
-            lots={auction.lots}
+            processedLots={processedLots}
             currentPage={currentPage}
             totalPages={totalPages}
             onPageChange={onPageChange}
-            processedLots={processedLots}
             onLotsDataChange={onLotsDataChange}
             isLoading={isLoading}
           />
@@ -92,6 +93,12 @@ export default function AuctionTabs({
         {activeTab === "conditions" && (
           <div className="max-w-4xl">
             <AuctionConditionsTab />
+          </div>
+        )}
+
+        {activeTab === "similar" && (
+          <div className="max-w-4xl">
+            <AuctionSimilarTab auctionId={auction.id} />
           </div>
         )}
       </div>

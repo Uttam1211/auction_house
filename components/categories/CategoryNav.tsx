@@ -2,10 +2,13 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import categoriesData from "@/data/categories.json";
-import { getImagePath } from "@/config/images";
+import { CategoryWithSubcategories } from "@/types/combinationPrismaTypes";
 
-export default function CategoryNav() {
+interface CategoryNavProps {
+  categories: CategoryWithSubcategories[];
+}
+
+export default function CategoryNav({ categories }: CategoryNavProps) {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
   return (
@@ -13,7 +16,7 @@ export default function CategoryNav() {
       <div className="container mx-auto max-w-7xl">
         <nav className="relative">
           <ul className="flex justify-center space-x-12 py-4">
-            {categoriesData.categories.map((category) => (
+            {categories.map((category) => (
               <li
                 key={category.id}
                 className="relative py-2 group"
@@ -56,7 +59,7 @@ export default function CategoryNav() {
                       </div>
                       <div className="w-48 p-4 bg-gray-50 dark:bg-gray-900 rounded-r-lg">
                         <Image
-                          src={getImagePath.category(category.id)}
+                          src={`/path/to/images/${category.image}`}
                           alt={category.name}
                           width={200}
                           height={200}

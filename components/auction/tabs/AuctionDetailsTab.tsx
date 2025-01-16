@@ -1,4 +1,4 @@
-import { Auction } from "@/types/auction";
+import { Auction } from "@prisma/client";
 
 interface AuctionDetailsTabProps {
   auction: Auction;

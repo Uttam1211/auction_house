@@ -1,12 +1,34 @@
 import useSWR from "swr";
-import { Lot } from "@/types/Lot";
+import { Bid, Category, Lot } from "@prisma/client";
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+const fetcher = async (url: string) => {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error("An error occurred while fetching the data.");
+  }
+  const data = await response.json();
+  if ("error" in data) {
+    throw new Error(data.error);
+  }
+  return data;
+};
+
+interface LotWithAuction extends Lot {
+    auction: {
+      title: string;
+  };
+  categories: Category[];
+  bidHistory: Bid[];
+}
 
 export function useLot(auctionId: string, lotId: string) {
-  const { data, error, isLoading } = useSWR<Lot>(
-    auctionId && lotId ? `/api/auctions/${auctionId}/lots/${lotId}` : null,
-    fetcher
+  const { data, error, isLoading } = useSWR<LotWithAuction>(
+    auctionId && lotId ? `/api/auctions/${auctionId}/${lotId}` : null,
+    fetcher,
+    {
+      revalidateOnFocus: false,
+      shouldRetryOnError: false,
+    }
   );
 
   return {

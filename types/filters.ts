@@ -1,3 +1,5 @@
+import { Lot } from "@prisma/client";
+
 export interface FilterState {
   categories: string[];
   priceMin?: number;
@@ -8,4 +10,5 @@ export interface FilterState {
   filterType: "all" | "open" | "my-bids" | "favorites";
   page: number;
   limit: number;
+  filteredLots: Lot[];
 }

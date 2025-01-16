@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { Heart } from "lucide-react";
 import Link from "next/link";
-import { Lot } from "@/types/Lot";
+import { Lot, Status } from "@prisma/client";
 
 export default function FeaturedLots() {
   const { lots } = useAuctions({ featured: true, limit: 5 });
@@ -61,10 +61,10 @@ export default function FeaturedLots() {
                       </h3>
                       <div className="flex justify-between items-center">
                         <Badge variant="secondary">
-                          Current Bid: ${lot.currentBid.toLocaleString()}
+                          Current Bid: ${lot.currentBid?.toLocaleString()}
                         </Badge>
                         <span className="text-sm text-gray-500">
-                          {lot.status === "open" ? "Active" : "Ended"}
+                          {lot.status === Status.OPEN ? "Active" : "Ended"}
                         </span>
                       </div>
                     </div>

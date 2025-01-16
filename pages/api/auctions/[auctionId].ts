@@ -1,17 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import auctionsData from "@/data/auctions_detail.json";
+import { PrismaClient } from "@prisma/client";
 
-interface FilterParams {
-  category?: string[];
-  priceMin?: number;
-  priceMax?: number;
-  status?: string[];
-  search?: string;
-  sort?: string;
-  filterType?: "all" | "open" | "my-bids" | "favorites";
-}
+const prisma = new PrismaClient();
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const {
     query: {
       auctionId,
@@ -28,7 +23,16 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   } = req;
 
   try {
-    let auction = auctionsData.find((a) => a.id === auctionId);
+    // Fetch the auction from the database
+    const auction = await prisma.auction.findUnique({
+      where: { id: auctionId as string },
+      include: {
+        lots: {
+          include: { categories: true },
+        },
+      },
+    });
+
     if (!auction) {
       return res.status(404).json({ message: "Auction not found" });
     }
@@ -38,14 +42,13 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     // Apply filterType filter
     switch (filterType) {
       case "open":
-        filteredLots = filteredLots.filter((lot) => lot.status === "open");
+        filteredLots = filteredLots.filter((lot) => lot.status === "OPEN");
         break;
       case "my-bids":
-        // In a real app, this would check against user's bid history
-        
+        // Example: Implement logic to check against user's bid history
         break;
       case "favorites":
-        // In a real app, this would check against user's favorites
+        // Example: Implement logic to check against user's favorites
         break;
     }
 
@@ -55,7 +58,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         ? categories
         : [categories];
       filteredLots = filteredLots.filter((lot) =>
-        lot.categories.some((cat) => categoryList.includes(cat))
+        lot.categories.some((cat) => categoryList.includes(cat.id))
       );
     }
 
@@ -70,8 +73,9 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     // Apply price filter
     if (priceMin || priceMax) {
       filteredLots = filteredLots.filter((lot) => {
+        if (!lot.estimatedPrice) return false;
         const [minPrice] = lot.estimatedPrice
-          .split("-")
+          ?.split("-")
           .map((str) => parseInt(str.replace(/[^0-9]/g, ""), 10));
         return (
           (!priceMin || minPrice >= Number(priceMin)) &&
@@ -88,7 +92,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       filteredLots = filteredLots.filter(
         (lot) =>
           lot.title.toLowerCase().includes(searchTerm) ||
-          lot.artist.toLowerCase().includes(searchTerm) ||
+          lot.artist?.toLowerCase().includes(searchTerm) ||
           lot.description.toLowerCase().includes(searchTerm)
       );
     }
@@ -96,6 +100,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     // Apply sorting
     if (sort) {
       filteredLots.sort((a, b) => {
+        if (!a.estimatedPrice || !b.estimatedPrice) return 0;
         switch (sort) {
           case "lot-number-asc":
             return a.id.localeCompare(b.id);
@@ -103,19 +108,19 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
             return b.id.localeCompare(a.id);
           case "estimate-asc": {
             const [aMin] = a.estimatedPrice
-              .split("-")
+              ?.split("-")
               .map((str) => parseInt(str.replace(/[^0-9]/g, ""), 10));
             const [bMin] = b.estimatedPrice
-              .split("-")
+              ?.split("-")
               .map((str) => parseInt(str.replace(/[^0-9]/g, ""), 10));
             return aMin - bMin;
           }
           case "estimate-desc": {
             const [aMin] = a.estimatedPrice
-              .split("-")
+              ?.split("-")
               .map((str) => parseInt(str.replace(/[^0-9]/g, ""), 10));
             const [bMin] = b.estimatedPrice
-              .split("-")
+              ?.split("-")
               .map((str) => parseInt(str.replace(/[^0-9]/g, ""), 10));
             return bMin - aMin;
           }
@@ -145,5 +150,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Internal Server Error" });
+  } finally {
+    await prisma.$disconnect();
   }
 }

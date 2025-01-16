@@ -17,16 +17,20 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { useState, useEffect } from "react";
 import { SearchFilters } from "@/types/search";
-import categoriesData from "@/data/categories.json"; // Import categories data
+import { Category, Subcategory } from "@prisma/client";
 
 interface AdvancedFiltersProps {
   currentFilters: SearchFilters;
   onApply: (filters: SearchFilters) => void;
+  categoriesData: Category[];
+  subcategoriesData: Subcategory[];
 }
 
 export default function AdvancedFilters({
   currentFilters,
   onApply,
+  categoriesData,
+  subcategoriesData,
 }: AdvancedFiltersProps) {
   const [filters, setFilters] = useState<SearchFilters>(currentFilters);
 
@@ -114,7 +118,7 @@ export default function AdvancedFilters({
               <SelectValue placeholder="Sort by" />
             </SelectTrigger>
             <SelectContent>
-              {filters.type === "lots" ? (
+              {filters.type === "lot" ? (
                 <>
                   <SelectItem value="bid-asc">
                     Starting Bid: Low to High
@@ -123,7 +127,7 @@ export default function AdvancedFilters({
                     Starting Bid: High to Low
                   </SelectItem>
                 </>
-              ) : filters.type === "events" ? (
+              ) : filters.type === "event" ? (
                 <>
                   <SelectItem value="date-asc">Date: Earliest First</SelectItem>
                   <SelectItem value="date-desc">Date: Latest First</SelectItem>
@@ -147,7 +151,10 @@ export default function AdvancedFilters({
           <Select
             value={filters.status || "any"}
             onValueChange={(value) =>
-              setFilters({ ...filters, status: value === "any" ? null : value })
+              setFilters({
+                ...filters,
+                status: value === "any" ? null : (value as any),
+              })
             }
           >
             <SelectTrigger>
@@ -195,7 +202,7 @@ export default function AdvancedFilters({
           <AccordionTrigger>Categories</AccordionTrigger>
           <AccordionContent>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {categoriesData.categories.map((category) => (
+              {categoriesData.map((category: Category) => (
                 <div key={category.id} className="space-y-2">
                   <div className="flex items-center space-x-2">
                     <Checkbox
@@ -208,10 +215,15 @@ export default function AdvancedFilters({
                     <label htmlFor={category.id}>{category.name}</label>
                   </div>
                   <div className="ml-6 space-y-1">
-                    {category.subcategories.map((sub) => (
-                      <div key={sub.id} className="flex items-center space-x-2">
-                        <Checkbox
-                          id={sub.id}
+                    {subcategoriesData
+                      .filter((sub) => sub.categoryId === category.id)
+                      .map((sub: Subcategory) => (
+                        <div
+                          key={sub.id}
+                          className="flex items-center space-x-2"
+                        >
+                          <Checkbox
+                            id={sub.id}
                           checked={filters.categories.includes(sub.id)}
                           onCheckedChange={(checked) =>
                             handleCategoryChange(sub.id, checked as boolean)

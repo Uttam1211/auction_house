@@ -4,12 +4,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { BidHistory } from "@/types/auction";
+import { Bid } from "@prisma/client";
 
 interface BidHistoryDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  bidHistory: BidHistory[];
+  bidHistory: Bid[];
 }
 
 export default function BidHistoryDialog({

@@ -5,7 +5,7 @@ import LotGrid from "@/components/auction/LotGrid";
 import { useAuctions } from "@/hooks/useAuctions";
 import { useState } from "react";
 import TableControls from "@/components/table/TableControls";
-import { Lot } from "@/types/Lot";
+import { Lot } from "@prisma/client";
 import AuctionTabs from "@/components/auction/AuctionTabs";
 import { useAuctionFilters } from "@/hooks/useAuctionFilters";
 

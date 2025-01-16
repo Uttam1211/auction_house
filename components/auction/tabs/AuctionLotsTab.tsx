@@ -1,41 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Lot } from "@/types/Lot";
+import {Lot, Status } from "@prisma/client";
 import { Grid, List, Hand, Heart } from "lucide-react";
 import FilterSidebar from "@/components/auction/FilterSidebar";
 import { cn } from "@/lib/utils";
 import LotCard from "@/components/auction/LotCard";
 import { FilterState } from "@/types/filters";
+import { LotWithCategories } from "@/types/combinationPrismaTypes";
 interface AuctionLotsTabProps {
-  lots: Lot[];
+  processedLots: LotWithCategories[];
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
-  processedLots: Lot[];
   onLotsDataChange: (filters: Partial<FilterState>) => void;
   isLoading: boolean;
-  auctionId: string;
 }
 
 type ViewMode = "grid" | "list";
 type LotFilter = "all" | "open" | "my-bids" | "favorites";
 
 export default function AuctionLotsTab({
-  lots,
+  processedLots,
   currentPage,
   totalPages,
   onPageChange,
-  processedLots,
   onLotsDataChange,
   isLoading,
-  auctionId,
 }: AuctionLotsTabProps) {
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
   const [filterType, setFilterType] = useState<LotFilter>("all");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("lot-number-asc");
+  const [filteredResults, setFilteredResults] = useState<LotWithCategories[]>(processedLots);
 
   const filterOptions = [
     { id: "all", label: "All lots", icon: Grid },
@@ -43,6 +41,63 @@ export default function AuctionLotsTab({
     { id: "my-bids", label: "My bids", icon: List },
     { id: "favorites", label: "Favorites", icon: Heart },
   ];
+
+  useEffect(() => {
+    let result = [...processedLots];
+
+    // Apply filter type
+    if (filterType !== "all") {
+      result = result.filter((lot) => {
+        switch (filterType) {
+          case "open":
+            return lot.status === Status.OPEN || lot.status === Status.UPCOMING;
+          case "my-bids":
+            return ""; // Assuming you have this property
+          case "favorites":
+            return ""; // Assuming you have this property
+          default:
+            return true;
+        }
+      });
+    }
+
+    // Apply search
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      result = result.filter(
+        (lot) =>
+          lot.title?.toLowerCase().includes(query) ||
+          lot.artist?.toLowerCase().includes(query)
+      );
+    }
+
+    // Apply sorting
+    result.sort((a, b) => {
+      switch (sortBy) {
+        case "name-asc":
+          return (a.title ?? "").localeCompare(b.title ?? "");
+        case "name-desc":
+          return (b.title ?? "").localeCompare(a.title ?? "");
+        case "price-asc":
+          return (a.startingBid ?? 0) - (b.startingBid ?? 0);
+        case "price-desc":
+          return (b.startingBid ?? 0) - (a.startingBid ?? 0);
+        default:
+          return 0;
+      }
+    });
+
+    // Instead of calling onLotsDataChange directly, only update when filters change
+    if (filterType !== "all" || searchQuery || sortBy !== "lot-number-asc") {
+      onLotsDataChange({
+        filterType,
+        search: searchQuery,
+        sort: sortBy,
+      });
+    }
+
+    setFilteredResults(result);
+  }, [filterType, searchQuery, sortBy]); // Remove onLotsDataChange and lots from dependencies
 
   return (
     <div className="space-y-6">
@@ -93,10 +148,10 @@ export default function AuctionLotsTab({
           onChange={(e) => setSortBy(e.target.value)}
           className="border rounded-md px-3 py-2"
         >
-          <option value="lot-number-asc">Lot number (low to high)</option>
-          <option value="lot-number-desc">Lot number (high to low)</option>
-          <option value="estimate-asc">Estimate (low to high)</option>
-          <option value="estimate-desc">Estimate (high to low)</option>
+          <option value="name-asc">Name (A-Z)</option>
+          <option value="name-desc">Name (Z-A)</option>
+          <option value="price-asc">Price (Low to High)</option>
+          <option value="price-desc">Price (High to Low)</option>
         </select>
 
         <div className="flex gap-2 border rounded-md p-1">
@@ -121,7 +176,7 @@ export default function AuctionLotsTab({
 
       {/* Results Count */}
       <div className="text-sm text-muted-foreground">
-        {processedLots.length} results sorted by {sortBy.replace("-", " ")}
+        {filteredResults.length} results sorted by {sortBy.replace("-", " ")}
       </div>
 
       {/* Lots Grid/List */}
@@ -131,12 +186,11 @@ export default function AuctionLotsTab({
           viewMode === "grid" ? "grid-cols-3" : "grid-cols-1"
         )}
       >
-        {processedLots.map((lot) => (
+        {filteredResults.map((lot) => (
           <LotCard
             key={lot.id}
             lot={lot}
             viewMode={viewMode}
-            auctionId={auctionId}
           />
         ))}
       </div>

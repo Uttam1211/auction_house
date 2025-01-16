@@ -1,22 +1,61 @@
+import { GetStaticProps } from "next";
+import { PrismaClient } from "@prisma/client";
 import FeaturedAuction from "@/components/auction/AuctionGrid";
-import { Auction as FeaturedAuctions } from "@/types/auction";
-import featuredAuctionsData from "@/data/auctions_detail.json";
+import { Auction, Category } from "@prisma/client";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import Header from "@/components/Header";
-import CategoryNav from "@/components/categories/CategoryNav";
-import Image from "next/image";
-import categoriesData from "@/data/categories.json";
 import Newsletter from "@/components/marketing/Newsletter";
 import Testimonials from "@/components/marketing/Testimonials";
 import FeaturedLots from "@/components/auction/FeaturedLots";
+import PublicLayout from "@/components/layouts/PublicLayout";
+import { CategoryWithSubcategories } from "@/types/combinationPrismaTypes";
+// Define the props type for the Home component
+interface HomeProps {
+  featuredAuctions: Auction[];
+  categories: CategoryWithSubcategories[];
+}
 
-export default function Home() {
-  const featuredAuctions: FeaturedAuctions[] = featuredAuctionsData.slice(
-    0,
-    3
-  ) as FeaturedAuctions[];
+export const getStaticProps: GetStaticProps = async () => {
+  const prisma = new PrismaClient();
 
+  try {
+    const [featuredAuctions, categories] = await Promise.all([
+      prisma.auction.findMany({
+        take: 3,
+        include: {
+          lots: true,
+          categories: true,
+        },
+      }),
+      prisma.category.findMany({
+        include: {
+          subcategories: true,
+        },
+      }),
+    ]);
+
+    return {
+      props: {
+        featuredAuctions: JSON.parse(JSON.stringify(featuredAuctions)),
+        categories: JSON.parse(JSON.stringify(categories)),
+      },
+      revalidate: 3600, // Revalidate every hour
+    };
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return {
+      props: {
+        featuredAuctions: [],
+        categories: [],
+      },
+      revalidate: 3600,
+    };
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
+export default function Home({ featuredAuctions }: HomeProps) {
   return (
     <>
       {/* Hero Section */}
@@ -51,36 +90,6 @@ export default function Home() {
           </Link>
         </div>
         <FeaturedAuction featuredAuctions={featuredAuctions} />
-      </section>
-
-      {/* Categories Section */}
-      <section className="mb-16">
-        <h2 className="text-3xl font-semibold mb-8 dark:text-white">
-          Explore Categories
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {categoriesData.categories.map((category) => (
-            <Link
-              key={category.id}
-              href={`/category/${category.id}`}
-              className="group relative overflow-hidden rounded-lg aspect-square hover:shadow-lg transition-all duration-300"
-            >
-              <Image
-                src={category.image}
-                alt={category.name}
-                fill
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent group-hover:from-black/80 transition-colors" />
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-t from-red-500/20 via-yellow-500/20 to-green-500/20 mix-blend-soft-light dark:mix-blend-screen" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <h3 className="text-white text-xl font-semibold transform group-hover:scale-105 transition-transform relative z-10">
-                  {category.name}
-                </h3>
-              </div>
-            </Link>
-          ))}
-        </div>
       </section>
 
       {/* Featured Lots Carousel */}

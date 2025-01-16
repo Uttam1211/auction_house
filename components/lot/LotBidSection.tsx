@@ -4,19 +4,19 @@ import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { History } from "lucide-react";
-import { BidHistory } from "@/types/auction";
+import { Bid } from "@prisma/client";
 import BidHistoryDialog from "@/components/lot/BidHistoryDialog";
 
 interface LotBidSectionProps {
   currentBid: number;
-  nextMinimumBid: number;
+  incrementRate: number;
   status: string;
-  bidHistory: BidHistory[];
+  bidHistory: Bid[];
 }
 
 export default function LotBidSection({
   currentBid,
-  nextMinimumBid,
+  incrementRate,
   status,
   bidHistory,
 }: LotBidSectionProps) {
@@ -47,14 +47,14 @@ export default function LotBidSection({
       {status === "active" ? (
         <div className="space-y-4">
           <p className="text-sm text-muted-foreground">
-            Next minimum bid: ${nextMinimumBid.toLocaleString()}
+            Bid Increment: ${incrementRate.toLocaleString()}
           </p>
           <div className="flex gap-2">
             <Input
               type="number"
               value={bidAmount}
               onChange={(e) => setBidAmount(e.target.value)}
-              placeholder={`Enter bid amount (min. $${nextMinimumBid})`}
+              placeholder={`Enter bid amount (increment is $${incrementRate})`}
             />
             <Button onClick={handleBid}>Place Bid</Button>
           </div>

@@ -7,13 +7,8 @@ import LoginButton from "./auth/LoginButton";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
-import CategoryNav from "./categories/CategoryNav";
 import { getImagePath } from "@/config/images";
 import { useRouter } from "next/router";
-
-interface HeaderProps {
-  showCategories?: boolean;
-}
 
 const navLinks = [
   { href: "/auctions", label: "Auctions" },

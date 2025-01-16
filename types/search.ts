@@ -1,10 +1,10 @@
 export interface SearchFilters {
   categories: string[];
   priceRange: [number, number];
-  status: string | null;
+  status: "OPEN" | "CLOSED" | "UPCOMING" | null;
   location: string | null;
   sortBy: string;
-  type: string;
+  type: "auction" | "lot" | "all" | "event" | "contact";
 }
 
 export interface SearchResult {
@@ -16,10 +16,16 @@ export interface SearchResult {
   price?: number;
   currentBid?: number;
   date?: string;
-  status?: string;
-  categories?: string[];
+  status: "OPEN" | "CLOSED" | "UPCOMING";
+  categories: string[];
   location?: string;
   href: string;
+  isSold: boolean;
+  isPublished: boolean;
+  isLive: boolean;
+  isFeatured: boolean;
+  isApproved: boolean;
+  error?: string;
 }
 
 export interface SearchResponse {
@@ -27,6 +33,7 @@ export interface SearchResponse {
   total: number;
   categories: string[];
   locations: string[];
+  error?: string;
 }
 
 export interface SearchResultsProps {

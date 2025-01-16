@@ -1,14 +1,13 @@
-import { Lot } from "@/types/Lot";
 import Image from "next/image";
 import { Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
+import { LotWithCategories } from "@/types/combinationPrismaTypes";
 
 interface LotCardProps {
-  lot: Lot;
+  lot: LotWithCategories;
   viewMode: "grid" | "list";
-  auctionId: string;
 }
 
 const categoryColors: { [key: string]: string } = {
@@ -31,10 +30,10 @@ const categoryColors: { [key: string]: string } = {
     "bg-slate-500/20 text-slate-700 dark:bg-slate-500/30 dark:text-slate-300",
 };
 
-export default function LotCard({ lot, viewMode, auctionId }: LotCardProps) {
+export default function LotCard({ lot, viewMode }: LotCardProps) {
   return (
     <Link
-      href={`/auction/${auctionId}/${lot.id}`}
+      href={`/auction/${lot.auctionId}/${lot.id}`}
       className={cn(
         "group relative overflow-hidden border rounded-lg dark:bg-gray-800 dark:border-gray-700 hover:shadow-lg transition-all duration-300 block",
         viewMode === "list" && "flex gap-6"
@@ -78,16 +77,17 @@ export default function LotCard({ lot, viewMode, auctionId }: LotCardProps) {
 
         {/* Category Tags */}
         <div className="flex gap-2 flex-wrap">
+
           {lot.categories.slice(0, 4).map((category) => (
             <Badge
-              key={category}
+              key={category.id}
               variant="secondary"
               className={cn(
                 "font-medium text-xs px-2 py-0.5 rounded-full",
-                categoryColors[category.toLowerCase()] || categoryColors.default
+                categoryColors[category.name.toLowerCase()] || categoryColors.default
               )}
             >
-              {category}
+              {category.name}
             </Badge>
           ))}
         </div>

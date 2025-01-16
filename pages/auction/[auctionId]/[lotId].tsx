@@ -18,14 +18,51 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
-
+import { Button } from "@/components/ui/button";
+import { useSimilarItems } from "@/hooks/useSimilarItems";
+import { useState } from "react";
+import { Category } from "@prisma/client";
+import { LotWithCategories } from "@/types/combinationPrismaTypes";
 export default function LotPage() {
   const router = useRouter();
   const { auctionId, lotId } = router.query;
-  const { data: lot, isLoading } = useLot(auctionId as string, lotId as string);
+  const {
+    data: lot,
+    isLoading,
+    isError,
+  } = useLot(auctionId as string, lotId as string);
+
+  const ITEMS_PER_PAGE = 8;
+  const [page, setPage] = useState(1);
+
+  const { similarLots, isLoading: isLoadingSimilar } = useSimilarItems(
+    auctionId as string,
+    lotId as string,
+    page,
+    ITEMS_PER_PAGE
+  );
+
+  const handleLoadMore = () => {
+    setPage((prev) => prev + 1);
+  };
 
   if (isLoading) return <div>Loading...</div>;
-  if (!lot) return <div>Lot not found</div>;
+  if (isError || !lot) {
+    return (
+      <div className="container mx-auto py-16 text-center">
+        <h1 className="text-2xl font-bold mb-4">Lot Not Found</h1>
+        <p className="text-muted-foreground mb-8">
+          The lot you're looking for doesn't exist or has been removed.
+        </p>
+        <Button
+          onClick={() => router.push(`/auction/${auctionId}`)}
+          variant="default"
+        >
+          Back to Auction
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto py-8">
@@ -38,7 +75,7 @@ export default function LotPage() {
           <BreadcrumbSeparator />
           <BreadcrumbItem>
             <BreadcrumbLink href={`/auction/${auctionId}`}>
-              {lot.auctionTitle}
+              {lot.auction.title}
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
@@ -57,20 +94,20 @@ export default function LotPage() {
           <div>
             <h1 className="text-2xl font-bold mb-2">{lot.title}</h1>
             <div className="flex flex-wrap gap-2">
-              {lot.categories.map((category: string) => (
-                <Badge key={category} variant="outline">
-                  {category}
+              {lot.categories?.map((category: Category) => (
+                <Badge key={category.id} variant="outline">
+                  {category.name}
                 </Badge>
               ))}
             </div>
           </div>
 
           <LotBidSection
-  currentBid={lot.currentBid}
-  nextMinimumBid={lot.nextMinimumBid || lot.currentBid + 100} // Fallback increment
-  status={lot.status}
-  bidHistory={lot.bidHistory || []}
-/>
+            incrementRate={lot.incrementRate}
+            currentBid={lot.currentBid || 0}
+            status={lot.status}
+            bidHistory={lot.bidHistory || []}
+          />
 
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="details">
@@ -83,11 +120,17 @@ export default function LotPage() {
                       <dt className="text-sm text-muted-foreground">
                         Dimensions
                       </dt>
-                      <dd>{lot.dimensions}</dd>
+                      <dd>
+                        {lot.width && lot.height
+                          ? `${lot.width} ${lot.unit} x ${lot.height} ${lot.unit}`
+                          : ""}
+                      </dd>
                     </div>
                     <div>
-                      <dt className="text-sm text-muted-foreground">Weight</dt>
-                      <dd>{lot.weight}</dd>
+                      <dt className="text-sm text-muted-foreground">
+                        Condition
+                      </dt>
+                      <dd>{lot.condition}</dd>
                     </div>
                   </dl>
                 </div>
@@ -104,7 +147,7 @@ export default function LotPage() {
             <AccordionItem value="shipping">
               <AccordionTrigger>Shipping Information</AccordionTrigger>
               <AccordionContent>
-                <p>{lot.shippingInfo}</p>
+                <p>{lot.provenance}</p>
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -114,8 +157,12 @@ export default function LotPage() {
       {/* Filters and Similar Lots */}
       <div className="mt-12">
         <h2 className="text-xl font-semibold mb-6">Similar Lots</h2>
-        <LotFilters />
-        {/* Similar lots grid */}
+        <LotFilters
+          similarLots={similarLots as LotWithCategories[]}
+          isLoading={isLoadingSimilar}
+          onLoadMore={handleLoadMore}
+          hasMore={(similarLots?.length ?? 0) >= page * ITEMS_PER_PAGE}
+        />
       </div>
     </div>
   );

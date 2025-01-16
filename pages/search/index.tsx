@@ -8,8 +8,37 @@ import { Search, SlidersHorizontal } from "lucide-react";
 import { useRouter } from "next/router";
 import { SearchFilters } from "@/types/search";
 import { useSearch } from "@/hooks/useSearch";
+import { GetServerSideProps } from "next";
+import { PrismaClient, Subcategory } from "@prisma/client";
+import { Category } from "@prisma/client";
 
-export default function SearchPage() {
+interface SearchPageProps {
+  categoriesData: Category[];
+  subcategoriesData: Subcategory[];
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const prisma = new PrismaClient();
+
+  try {
+    const categories = await prisma.category.findMany({
+      include: { subcategories: true },
+    });
+
+    return {
+      props: {
+        categoriesData: JSON.parse(JSON.stringify(categories)),
+      },
+    };
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
+export default function SearchPage({
+  categoriesData,
+  subcategoriesData,
+}: SearchPageProps) {
   const router = useRouter();
   const { q: initialQuery, type: initialType } = router.query;
   const [searchQuery, setSearchQuery] = useState(
@@ -20,10 +49,10 @@ export default function SearchPage() {
   const [filters, setFilters] = useState<SearchFilters>({
     categories: [],
     priceRange: [0, 1000000],
-    status: "",
-    location: "",
+    status: null,
+    location: null,
     sortBy: "relevance",
-    type: activeTab,
+    type: activeTab as "all" | "auction" | "lot" | "event" | "contact",
   });
 
   const { data, isLoading, isError } = useSearch(searchQuery, filters);
@@ -123,6 +152,8 @@ export default function SearchPage() {
 
         {showFilters && (
           <AdvancedFilters
+            categoriesData={categoriesData}
+            subcategoriesData={subcategoriesData}
             currentFilters={filters}
             onApply={handleFilterApply}
           />
@@ -154,28 +185,28 @@ export default function SearchPage() {
         <TabsContent value="auctions">
           <SearchResults
             query={searchQuery}
-            filters={{ ...filters, type: "auctions" }}
+            filters={{ ...filters, type: "auction" }}
             data={data || null}
           />
         </TabsContent>
         <TabsContent value="lots">
           <SearchResults
             query={searchQuery}
-            filters={{ ...filters, type: "lots" }}
+            filters={{ ...filters, type: "lot" }}
             data={data || null}
           />
         </TabsContent>
         <TabsContent value="events">
           <SearchResults
             query={searchQuery}
-            filters={{ ...filters, type: "events" }}
+            filters={{ ...filters, type: "event" }}
             data={data || null}
           />
         </TabsContent>
         <TabsContent value="contacts">
           <SearchResults
             query={searchQuery}
-            filters={{ ...filters, type: "contacts" }}
+            filters={{ ...filters, type: "contact" }}
             data={data || null}
           />
         </TabsContent>

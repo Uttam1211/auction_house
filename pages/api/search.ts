@@ -1,8 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import auctionsData from "@/data/auctions_detail.json";
-import { SearchResponse, SearchFilters } from "@/types/search";
+import { PrismaClient } from "@prisma/client";
+import { SearchResponse } from "@/types/search";
+import { Lot } from "@prisma/client";
 
-export default function handler(
+
+const prisma = new PrismaClient();
+
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<SearchResponse>
 ) {
@@ -29,114 +33,157 @@ export default function handler(
     });
   }
 
-  // Process all items
-  auctionsData.forEach((auction) => {
-    let matchesAuction = true;
+  try {
+    // Fetch auctions and lots from the database
+    const auctions = await prisma.auction.findMany({
+      include: {
+        lots: {
+          select: {
+            id: true,
+            auctionId: true,
+            title: true,
+            artist: true,
+            estimatedPrice: true,
+            currentBid: true,
+            images: true,
+            categories: {
+              select: {
+                id: true,
+                name: true,
+                image: true,
+              },
+            },
+            status: true,
+            description: true,
+            startingBid: true,
+            reservePrice: true,
+            incrementRate: true,
+            isSold: true,
+            isPublished: true,
+            isLive: true,
+            isFeatured: true,
+            isApproved: true,
+          },
+        },
+        categories: true,
+      },
+    });
 
-    // Apply auction filters if any exist
-    if (query) {
-      matchesAuction =
-        auction.title.toLowerCase().includes((query as string).toLowerCase()) ||
-        auction.description
-          .toLowerCase()
-          .includes((query as string).toLowerCase());
-    }
-    if (categories) {
-      matchesAuction =
-        matchesAuction &&
-        auction.categories.some((cat) =>
-          (categories as string).split(",").includes(cat)
-        );
-    }
-    if (location) {
-      matchesAuction = matchesAuction && auction.location === location;
-    }
-    if (status) {
-      matchesAuction = matchesAuction && auction.status === status;
-    }
+    // Process all items
+    auctions.forEach((auction) => {
+      let matchesAuction = true;
 
-    // Add auction if it matches and type is appropriate
-    if (matchesAuction && (!type || type === "all" || type === "auctions")) {
-      results.push({
-        id: auction.id,
-        type: "auction",
-        title: auction.title,
-        description: auction.description,
-        image: auction.images[0],
-        date: auction.startDate,
-        status: auction.status,
-        categories: auction.categories,
-        location: auction.location,
-        href: `/auction/${auction.id}`,
-      });
-    }
-
-    // Process lots
-    auction.lots?.forEach((lot) => {
-      let matchesLot = true;
-
-      // Apply lot filters if any exist
+      // Apply auction filters if any exist
       if (query) {
-        matchesLot =
-          lot.title.toLowerCase().includes((query as string).toLowerCase()) ||
-          lot.description
+        matchesAuction =
+          auction.title
+            .toLowerCase()
+            .includes((query as string).toLowerCase()) ||
+          auction.description
             .toLowerCase()
             .includes((query as string).toLowerCase());
       }
       if (categories) {
-        matchesLot =
-          matchesLot &&
-          lot.categories.some((cat) =>
-            (categories as string).split(",").includes(cat)
+        matchesAuction =
+          matchesAuction &&
+          auction.categories.some((cat: { name: string }) =>
+            (categories as string).split(",").includes(cat.name)
           );
       }
+      if (location) {
+        matchesAuction = matchesAuction && auction.location === location;
+      }
       if (status) {
-        matchesLot = matchesLot && lot.status === status;
-      }
-      if (minPrice) {
-        matchesLot = matchesLot && lot.currentBid >= Number(minPrice);
-      }
-      if (maxPrice) {
-        matchesLot = matchesLot && lot.currentBid <= Number(maxPrice);
+        matchesAuction = matchesAuction && auction.status === status;
       }
 
-      // Add lot if it matches and type is appropriate
-      if (matchesLot && (!type || type === "all" || type === "lots")) {
+      // Add auction if it matches and type is appropriate
+      if (matchesAuction && (!type || type === "all" || type === "auctions")) {
         results.push({
-          id: lot.id,
-          type: "lot",
-          title: lot.title,
-          description: lot.description,
-          image: lot.images[0],
-          currentBid: lot.currentBid,
-          price: lot.estimatedPrice,
-          categories: lot.categories,
-          status: lot.status,
-          href: `/auction/${auction.id}/lot/${lot.id}`,
+          id: auction.id,
+          type: "auction",
+          title: auction.title,
+          description: auction.description,
+          image: auction.images[0],
+          date: auction.startDate,
+          status: auction.status,
+          categories: auction.categories.map((cat) => cat.name),
+          location: auction.location,
+          href: `/auction/${auction.id}`,
         });
       }
+
+      // Process lots
+      auction.lots?.forEach((lot) => {
+        let matchesLot = true;
+
+        // Apply lot filters if any exist
+        if (query) {
+          matchesLot =
+            lot.title.toLowerCase().includes((query as string).toLowerCase()) ||
+            lot.description
+              .toLowerCase()
+              .includes((query as string).toLowerCase());
+        }
+        if (categories) {
+          matchesLot =
+            matchesLot &&
+            lot.categories.some((cat: { name: string }) =>
+              (categories as string).split(",").includes(cat.name)
+            );
+        }
+        if (status) {
+          matchesLot = matchesLot && lot.status === status;
+        }
+        if (minPrice) {
+          matchesLot = matchesLot && (lot.currentBid ?? 0) >= Number(minPrice);
+        }
+        if (maxPrice) {
+          matchesLot = matchesLot && (lot.currentBid ?? 0) <= Number(maxPrice);
+        }
+
+        // Add lot if it matches and type is appropriate
+        if (matchesLot && (!type || type === "all" || type === "lots")) {
+          results.push({
+            id: lot.id,
+            type: "lot",
+            title: lot.title,
+            description: lot.description,
+            image: lot.images[0],
+            currentBid: lot.currentBid ?? 0,
+            price: lot.estimatedPrice,
+            categories: lot.categories.map((cat) => cat.name),
+            status: lot.status,
+            href: `/auction/${auction.id}/lot/${lot.id}`,
+          });
+        }
+      });
     });
-  });
 
-  // Apply sorting if specified
-  if (sortBy) {
-    results = sortResults(results, sortBy as string, query as string);
+    // Apply sorting if specified
+    if (sortBy) {
+      results = sortResults(results, sortBy as string, query as string);
+    }
+
+    // Get unique categories and locations from results
+    const uniqueCategories = [
+      ...new Set(results.flatMap((r) => r.categories || [])),
+    ];
+    const uniqueLocations = [
+      ...new Set(results.map((r) => r.location).filter(Boolean)),
+    ];
+
+    res.status(200).json({
+      results,
+      total: results.length,
+      categories: uniqueCategories,
+      locations: uniqueLocations,
+    });
+  } catch (error) {
+    return res.status(500).json({ error: "Internal Server Error" } as SearchResponse);
+  } finally {
+    await prisma.$disconnect();
   }
-
-  // Get unique categories and locations from results
-  const uniqueCategories = [
-    ...new Set(results.flatMap((r) => r.categories || [])),
-  ];
-  const uniqueLocations = [
-    ...new Set(results.map((r) => r.location).filter(Boolean)),
-  ];
-
-  res.status(200).json({
-    results,
-    total: results.length,
-    categories: uniqueCategories,
-    locations: uniqueLocations,
-  });
 }
 
 function sortResults(results: any[], sortBy: string, query: string) {

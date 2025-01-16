@@ -50,4 +50,121 @@ enum Role {
   ADMIN
 }
 
+model Category {
+  id            String        @id @default(uuid())
+  name          String
+  image         String
+  subcategories Subcategory[]
+  auctions      Auction[]     @relation("AuctionCategories")
+  lots          Lot[]         @relation("LotCategories")
+}
+
+model Subcategory {
+  id         String   @id @default(uuid())
+  name       String
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+}
+
+enum Status {
+  OPEN
+  CLOSED
+  UPCOMING
+}
+
+enum Unit {
+  CM
+  IN
+}
+
+enum VenueType {
+  ONLINE
+  IN_PERSON
+}
+
+model Auction {
+  id                  String        @id @default(uuid())
+  title               String
+  description         String        @default("Not provided")
+  timeStamp           DateTime      @default(now())
+  startDate           DateTime
+  endDate             DateTime
+  images              String[]
+  auctioneer          String        @default("Not provided")
+  location            String[]      @default([])
+  status              Status        @default(UPCOMING)
+  tags                String[]      @default([])
+  noOfLots            Int           @default(0)
+  isFeatured          Boolean       @default(false)
+  isPublished         Boolean       @default(false)
+  isActive            Boolean       @default(false)
+  isLive              Boolean       @default(false)
+  venueType           VenueType     @default(IN_PERSON)
+  // Additional Details
+  venue               String?
+  registrationDeadline DateTime?
+  contactPersonName    String?
+  contactPersonEmail   String?
+  contactPersonPhone   String?
+  
+  // Relations
+  categories          Category[]    @relation("AuctionCategories")
+  lots               Lot[]
+  viewingDates       ViewingDate[] 
+}
+
+model ViewingDate {
+  id        String   @id @default(uuid())
+  start     DateTime
+  end       DateTime
+  auctionId String
+  auction   Auction  @relation(fields: [auctionId], references: [id])
+}
+
+model Lot {
+  id             String   @id @default(uuid())
+  title          String
+  artist         String?
+  estimatedPrice String?
+  currentBid     Float?
+  images         String[]
+  status         Status   @default(UPCOMING)
+  description    String   @default("Not provided")
+  timeStamp      DateTime @default(now())
+  startingBid    Float  @default(0)
+  reservePrice   Float  @default(0)
+  incrementRate  Float  @default(0)
+  isSold         Boolean @default(false)
+  isPublished    Boolean @default(false)
+  isLive         Boolean @default(false)
+  isFeatured     Boolean @default(false)
+  isApproved     Boolean @default(false)
+  
+  // Details
+  medium         String?
+  height         Float?
+  width          Float?
+  unit           Unit     @default(CM)
+  year           String?
+  condition      String?
+  provenance     String?
+  signature      String?
+  edition        String?
+  
+  // Relations
+  auctionId      String
+  auction        Auction    @relation(fields: [auctionId], references: [id])
+  categories     Category[] @relation("LotCategories")
+  bidHistory     Bid[]
+}
+
+model Bid {
+  id        String   @id @default(uuid())
+  bidder    String
+  amount    Float
+  timestamp DateTime @default(now())
+  lotId     String
+  lot       Lot      @relation(fields: [lotId], references: [id])
+}
+
 

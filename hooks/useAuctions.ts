@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { Auction } from "@/types/auction";
+import type {Lot} from "@prisma/client";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -55,10 +55,16 @@ export function useAuctions({
     keepPreviousData: true,
   });
 
+  // Add auctionId to lots and use the mapped result
+  const processedLots = data?.auction?.lots?.map((lot: Lot) => ({
+    ...lot,
+    auctionId: data?.auction?.id,
+  }));
+
   return {
     auction: auctionId ? data?.auction : undefined,
     auctions: auctionId ? undefined : data?.auctions,
-    lots: data?.auction?.lots,
+    lots: processedLots, // Return the processed lots instead of data?.auction?.lots
     pagination: data?.pagination,
     isLoading: !error && !data,
     isError: error,

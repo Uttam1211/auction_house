@@ -1,13 +1,45 @@
+import { GetStaticProps } from "next";
+import { PrismaClient } from "@prisma/client";
 import FeaturedAuction from "@/components/auction/AuctionGrid";
-import { Auction as FeaturedAuctions } from "@/types/auction";
-import featuredAuctionsData from "@/data/auctions_detail.json";
+import { Auction } from "@prisma/client";
 
-export default function featured() {
-  const featuredAuctions: FeaturedAuctions[] =
-    featuredAuctionsData as FeaturedAuctions[];
-  return (
-    <>
-      <FeaturedAuction featuredAuctions={featuredAuctions} />
-    </>
-  );
+export const getStaticProps: GetStaticProps = async () => {
+  const prisma = new PrismaClient();
+
+  try {
+    const featuredAuctions = await prisma.auction.findMany({
+      where: {
+        isFeatured: true,
+      },
+      include: {
+        lots: true,
+        categories: true,
+      },
+    });
+
+    return {
+      props: {
+        featuredAuctions: JSON.parse(JSON.stringify(featuredAuctions)),
+      },
+      revalidate: 3600, // fetch every 1 hour
+    };
+  } catch (error) {
+    console.error("Error fetching auctions:", error);
+    return {
+      props: {
+        featuredAuctions: [],
+      },
+      revalidate: 3600, // fetch every 1 hour
+    };
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
+interface FeaturedProps {
+  featuredAuctions: Auction[];
+}
+
+export default function Featured({ featuredAuctions }: FeaturedProps) {
+  return <FeaturedAuction featuredAuctions={featuredAuctions} />;
 }

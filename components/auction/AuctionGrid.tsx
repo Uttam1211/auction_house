@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
-import { Auction as FeaturedAuctions } from "@/types/auction";
+import { Auction as FeaturedAuctions } from "@prisma/client";
 import Link from "next/link";
 
 type FeaturedAuctionProps = {
@@ -18,10 +18,7 @@ export default function FeaturedAuction({
           key={auction.id}
           className="group relative overflow-hidden hover:shadow-lg transition-all duration-300 dark:bg-gray-800 dark:border-gray-700"
         >
-          <Link
-            href={`/auction/${auction.id}`}
-            className="block rounded-lg"
-          >
+          <Link href={`/auction/${auction.id}`} className="block rounded-lg">
             <CardHeader>
               <CardTitle className="dark:text-white">{auction.title}</CardTitle>
             </CardHeader>

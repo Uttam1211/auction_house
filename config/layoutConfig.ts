@@ -7,22 +7,20 @@ const layoutConfig = {
     "/",
     "/about",
     "/auctions",
-    "/auction/*",
+    "/auctions/*",
     "/footer/*",
     "/contact",
   ],
-  privatePaths: [
-    "/dashboard",
-    "/profile",
-    "/admin/*",
-  ],
+  privatePaths: ["/dashboard", "/profile", "/admin/*"],
 };
 
 const getLayoutType = (pathname: string) => {
   // Helper to check if a route matches a list of paths
   const matchPath = (paths: string[]) =>
     paths.some((path) =>
-      path.endsWith("/*") ? pathname.startsWith(path.replace("/*", "")) : path === pathname
+      path.endsWith("/*")
+        ? pathname.startsWith(path.replace("/*", ""))
+        : path === pathname
     );
 
   if (matchPath(layoutConfig.privatePaths)) {

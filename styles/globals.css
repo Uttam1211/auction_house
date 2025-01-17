@@ -162,3 +162,14 @@ body {
     background-position: 0% 50%;
   }
 }
+
+@layer components {
+  .link-hover {
+    @apply hover:bg-gray-100/50 dark:hover:bg-gray-800/50 rounded-md p-2 transition-colors;
+  }
+}
+
+/* Optional: Apply to all Next.js Links automatically */
+a[href]:not(.no-hover) {
+  @apply hover:bg-gray-100/50 dark:hover:bg-gray-800/50 rounded-md p-2 transition-colors;
+}

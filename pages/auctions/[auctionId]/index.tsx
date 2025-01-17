@@ -1,13 +1,20 @@
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import LotGrid from "@/components/auction/LotGrid";
+import LotGrid from "@/components/auctions/LotGrid";
 import { useAuctions } from "@/hooks/useAuctions";
 import { useState } from "react";
 import TableControls from "@/components/table/TableControls";
 import { Lot } from "@prisma/client";
-import AuctionTabs from "@/components/auction/AuctionTabs";
+import AuctionTabs from "@/components/auctions/AuctionTabs";
 import { useAuctionFilters } from "@/hooks/useAuctionFilters";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 export default function AuctionDetails() {
   const router = useRouter();
@@ -47,7 +54,7 @@ export default function AuctionDetails() {
     return (
       <div className="container mx-auto px-4 py-8">
         <p>Auction not found!</p>
-        <Button onClick={() => router.push("/auction/featured")}>
+        <Button onClick={() => router.push("/auctions/featured")}>
           Back to Featured Auctions
         </Button>
       </div>
@@ -55,7 +62,16 @@ export default function AuctionDetails() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 mt-[120px]">
+    <div className="container mx-auto py-8 ">
+      <Breadcrumb className="mb-8">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/auctions">Auctions</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>{auction.title}</BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
       <div className="grid md:grid-cols-2 gap-8 mb-12">
         <div>
           <Image

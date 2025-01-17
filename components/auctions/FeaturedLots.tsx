@@ -20,7 +20,7 @@ export default function FeaturedLots() {
         <h2 className="text-3xl font-bold dark:text-white">Trending Lots</h2>
         <Link
           href="/lots"
-          className="text-primary hover:text-primary/80 transition-colors"
+          className="text-primary hover:text-primary/80 transition-colors "
         >
           View all lots →
         </Link>
@@ -35,7 +35,7 @@ export default function FeaturedLots() {
         <CarouselContent>
           {lots?.map((lot: Lot) => (
             <CarouselItem key={lot.id} className="md:basis-1/2 lg:basis-1/3">
-              <Link href={`/auction/${lot.auctionId}/lot/${lot.id}`}>
+              <Link href={`/auctions/${lot.auctionId}/lot/${lot.id}`}>
                 <Card className="mx-2 hover:shadow-lg transition-all duration-300">
                   <CardContent className="p-0">
                     <div className="relative aspect-square">

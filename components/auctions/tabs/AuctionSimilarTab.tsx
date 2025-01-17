@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import AuctionFilter from "@/components/auction/AuctionFilter";
+import AuctionFilter from "@/components/auctions/AuctionFilter";
 import { useSimilarItems } from "@/hooks/useSimilarItems";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,7 +13,11 @@ import {
 
 const ITEMS_PER_PAGE = 8;
 
-export default function AuctionSimilarTab({ auctionId }: { auctionId: string }) {
+export default function AuctionSimilarTab({
+  auctionId,
+}: {
+  auctionId: string;
+}) {
   const router = useRouter();
   const [page, setPage] = useState(1);
 
@@ -28,7 +32,7 @@ export default function AuctionSimilarTab({ auctionId }: { auctionId: string }) 
     return (
       <div className="container mx-auto py-16 text-center">
         <h1 className="text-2xl font-bold mb-4">Auction Not Found</h1>
-        <Button onClick={() => router.push('/auctions')}>
+        <Button onClick={() => router.push("/auctions")}>
           Back to Auctions
         </Button>
       </div>
@@ -36,7 +40,7 @@ export default function AuctionSimilarTab({ auctionId }: { auctionId: string }) 
   }
 
   const handleLoadMore = () => {
-    setPage(prev => prev + 1);
+    setPage((prev) => prev + 1);
   };
 
   return (
@@ -48,7 +52,7 @@ export default function AuctionSimilarTab({ auctionId }: { auctionId: string }) 
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href={`/auction/${auctionId}`}>
+            <BreadcrumbLink href={`/auctions/${auctionId}`}>
               Current Auction
             </BreadcrumbLink>
           </BreadcrumbItem>

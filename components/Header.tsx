@@ -2,17 +2,21 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search, Menu, SlidersHorizontal } from "lucide-react";
+import { Search, Menu, SlidersHorizontal, DotIcon } from "lucide-react";
 import LoginButton from "./auth/LoginButton";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { getImagePath } from "@/config/images";
 import { useRouter } from "next/router";
+import { SignInButton } from "@clerk/nextjs";
+import { SignedOut } from "@clerk/nextjs";
+import { UserButton } from "@clerk/nextjs";
+import { SignedIn } from "@clerk/nextjs";
 
 const navLinks = [
   { href: "/auctions", label: "Auctions" },
-  { href: "/auction/featured", label: "Featured" },
+  { href: "/auctions/featured", label: "Featured" },
   { href: "/footer/about_us", label: "About" },
 ];
 
@@ -88,14 +92,20 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+                className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white  hover:bg-gray-100/50 dark:hover:bg-gray-800/50 rounded-md p-2"
               >
                 {link.label}
               </Link>
             ))}
           </nav>
-
-          <LoginButton />
+          <SignedOut>
+            <SignInButton mode="modal">
+              <Button variant="default">Sign In</Button>
+            </SignInButton>
+          </SignedOut>
+          <SignedIn>
+            <UserButton/>
+          </SignedIn>
 
           {/* Mobile Navigation */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>

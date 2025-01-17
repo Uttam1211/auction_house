@@ -33,7 +33,7 @@ const categoryColors: { [key: string]: string } = {
 export default function LotCard({ lot, viewMode }: LotCardProps) {
   return (
     <Link
-      href={`/auction/${lot.auctionId}/${lot.id}`}
+      href={`/auctions/${lot.auctionId}/${lot.id}`}
       className={cn(
         "group relative overflow-hidden border rounded-lg dark:bg-gray-800 dark:border-gray-700 hover:shadow-lg transition-all duration-300 block",
         viewMode === "list" && "flex gap-6"
@@ -77,14 +77,14 @@ export default function LotCard({ lot, viewMode }: LotCardProps) {
 
         {/* Category Tags */}
         <div className="flex gap-2 flex-wrap">
-
           {lot.categories.slice(0, 4).map((category) => (
             <Badge
               key={category.id}
               variant="secondary"
               className={cn(
                 "font-medium text-xs px-2 py-0.5 rounded-full",
-                categoryColors[category.name.toLowerCase()] || categoryColors.default
+                categoryColors[category.name.toLowerCase()] ||
+                  categoryColors.default
               )}
             >
               {category.name}

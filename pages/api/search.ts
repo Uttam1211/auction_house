@@ -3,7 +3,6 @@ import { PrismaClient } from "@prisma/client";
 import { SearchResponse } from "@/types/search";
 import { Lot } from "@prisma/client";
 
-
 const prisma = new PrismaClient();
 
 export default async function handler(
@@ -109,7 +108,7 @@ export default async function handler(
           status: auction.status,
           categories: auction.categories.map((cat) => cat.name),
           location: auction.location,
-          href: `/auction/${auction.id}`,
+          href: `/auctions/${auction.id}`,
         });
       }
 
@@ -154,7 +153,7 @@ export default async function handler(
             price: lot.estimatedPrice,
             categories: lot.categories.map((cat) => cat.name),
             status: lot.status,
-            href: `/auction/${auction.id}/lot/${lot.id}`,
+            href: `/auctions/${auction.id}/lot/${lot.id}`,
           });
         }
       });
@@ -180,7 +179,9 @@ export default async function handler(
       locations: uniqueLocations,
     });
   } catch (error) {
-    return res.status(500).json({ error: "Internal Server Error" } as SearchResponse);
+    return res
+      .status(500)
+      .json({ error: "Internal Server Error" } as SearchResponse);
   } finally {
     await prisma.$disconnect();
   }

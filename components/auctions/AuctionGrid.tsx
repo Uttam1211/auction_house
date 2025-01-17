@@ -18,7 +18,7 @@ export default function FeaturedAuction({
           key={auction.id}
           className="group relative overflow-hidden hover:shadow-lg transition-all duration-300 dark:bg-gray-800 dark:border-gray-700"
         >
-          <Link href={`/auction/${auction.id}`} className="block rounded-lg">
+          <Link href={`/auctions/${auction.id}`} className="block rounded-lg">
             <CardHeader>
               <CardTitle className="dark:text-white">{auction.title}</CardTitle>
             </CardHeader>

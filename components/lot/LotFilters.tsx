@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Grid, Hand, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
-import LotCard from "@/components/auction/LotCard";
+import LotCard from "@/components/auctions/LotCard";
 import { Status } from "@prisma/client";
 import { LotWithCategories } from "@/types/combinationPrismaTypes";
 
@@ -26,9 +26,8 @@ export default function LotFilters({
   const [filterType, setFilterType] = useState<LotFilter>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<SortOption>("name-asc");
-  const [filteredLots, setFilteredLots] = useState<LotWithCategories[]>(
-    similarLots
-  );
+  const [filteredLots, setFilteredLots] =
+    useState<LotWithCategories[]>(similarLots);
 
   useEffect(() => {
     let result = [...similarLots];

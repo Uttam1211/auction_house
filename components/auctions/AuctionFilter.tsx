@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Grid, Hand, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
-import AuctionGrid from "@/components/auction/AuctionGrid";
+import AuctionGrid from "@/components/auctions/AuctionGrid";
 import { Auction, Status } from "@prisma/client";
 
 interface AuctionFilterProps {
@@ -12,6 +12,8 @@ interface AuctionFilterProps {
   onLoadMore: () => void;
   hasMore: boolean;
 }
+
+
 
 type AuctionFilter = "all" | "active" | "ended";
 type SortOption = "name-asc" | "name-desc" | "date-asc" | "date-desc";
@@ -35,7 +37,9 @@ export default function AuctionFilter({
     if (filterType !== "all") {
       result = result.filter((auction) => {
         if (filterType === "active") {
-          return auction.status === Status.OPEN || auction.status === Status.UPCOMING;
+          return (
+            auction.status === Status.OPEN || auction.status === Status.UPCOMING
+          );
         }
         return auction.status === Status.CLOSED;
       });

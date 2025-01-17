@@ -55,7 +55,7 @@ export default function LotPage() {
           The lot you're looking for doesn't exist or has been removed.
         </p>
         <Button
-          onClick={() => router.push(`/auction/${auctionId}`)}
+          onClick={() => router.push(`/auctions/${auctionId}`)}
           variant="default"
         >
           Back to Auction
@@ -74,7 +74,7 @@ export default function LotPage() {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href={`/auction/${auctionId}`}>
+            <BreadcrumbLink href={`/auctions/${auctionId}`}>
               {lot.auction.title}
             </BreadcrumbLink>
           </BreadcrumbItem>

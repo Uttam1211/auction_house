@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {Lot, Status } from "@prisma/client";
+import { Lot, Status } from "@prisma/client";
 import { Grid, List, Hand, Heart } from "lucide-react";
-import FilterSidebar from "@/components/auction/FilterSidebar";
+import FilterSidebar from "@/components/auctions/FilterSidebar";
 import { cn } from "@/lib/utils";
-import LotCard from "@/components/auction/LotCard";
+import LotCard from "@/components/auctions/LotCard";
 import { FilterState } from "@/types/filters";
 import { LotWithCategories } from "@/types/combinationPrismaTypes";
 interface AuctionLotsTabProps {
@@ -33,7 +33,8 @@ export default function AuctionLotsTab({
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("lot-number-asc");
-  const [filteredResults, setFilteredResults] = useState<LotWithCategories[]>(processedLots);
+  const [filteredResults, setFilteredResults] =
+    useState<LotWithCategories[]>(processedLots);
 
   const filterOptions = [
     { id: "all", label: "All lots", icon: Grid },
@@ -187,11 +188,7 @@ export default function AuctionLotsTab({
         )}
       >
         {filteredResults.map((lot) => (
-          <LotCard
-            key={lot.id}
-            lot={lot}
-            viewMode={viewMode}
-          />
+          <LotCard key={lot.id} lot={lot} viewMode={viewMode} />
         ))}
       </div>
 

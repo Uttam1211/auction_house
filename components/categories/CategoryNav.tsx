@@ -12,7 +12,8 @@ export default function CategoryNav({ categories }: CategoryNavProps) {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
   return (
-    <div className="border-b dark:border-gray-800 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm relative z-50">
+    
+    <div className="w-full bg-wheat/10 dark:bg-gray-900/1 backdrop-blur-sm border-b border-gray-200/50 dark:border-gray-800/50 relative z-50">
       <div className="container mx-auto max-w-7xl">
         <nav className="relative">
           <ul className="flex justify-center space-x-12 py-4">
@@ -25,7 +26,7 @@ export default function CategoryNav({ categories }: CategoryNavProps) {
               >
                 <Link
                   href={`/category/${category.id}`}
-                  className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium transition-colors relative z-50"
+                  className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-medium transition-colors relative z-50 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 rounded-md p-2"
                 >
                   {category.name}
                 </Link>
@@ -37,7 +38,7 @@ export default function CategoryNav({ categories }: CategoryNavProps) {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute left-1/2 -translate-x-1/2 top-full mt-2 z-50 w-[500px] bg-white dark:bg-gray-800 shadow-lg rounded-lg border dark:border-gray-700 flex"
+                      className="absolute left-1/2 -translate-x-1/2 top-full mt-2 z-50 w-[500px] bg-white dark:bg-gray-900 backdrop-blur-md shadow-lg rounded-lg border border-gray-200/50 dark:border-gray-800/50 flex"
                       style={{ pointerEvents: "auto" }}
                     >
                       <div className="p-6 flex-1">

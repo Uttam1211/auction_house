@@ -8,9 +8,10 @@ import { useState } from "react";
 interface FilterSidebarProps {
   isOpen: boolean;
   onClose: () => void;
+  onApply: () => void;
 }
 
-export default function FilterSidebar({ isOpen, onClose }: FilterSidebarProps) {
+export default function FilterSidebar({ isOpen, onClose, onApply }: FilterSidebarProps) {
   const [priceRange, setPriceRange] = useState([0, 100000]);
   
   const categories = [

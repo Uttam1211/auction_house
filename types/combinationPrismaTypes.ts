@@ -1,16 +1,9 @@
-import { Category, Subcategory } from "@prisma/client";
-
-import { Lot } from "@prisma/client";
-
-export interface LotWithCategories extends Lot {
-  categories: Category[];
-  subcategories?: Subcategory[];
-}
-
-export interface SubcategoryWithCategories extends Subcategory {
-  categories: Category[];
-}
+import { Category, Subcategory, Lot } from "@prisma/client";
 
 export interface CategoryWithSubcategories extends Category {
   subcategories: Subcategory[];
+}
+
+export interface LotWithCategories extends Lot {
+  categories: CategoryWithSubcategories[];
 }

@@ -10,6 +10,7 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import Loading from "@/components/Loading";
 
 const ITEMS_PER_PAGE = 8;
 
@@ -30,8 +31,10 @@ export default function AuctionSimilarTab({
 
   if (!auctionId) {
     return (
-      <div className="container mx-auto py-16 text-center">
-        <h1 className="text-2xl font-bold mb-4">Auction Not Found</h1>
+      <div className="flex flex-col items-center justify-center py-8 md:py-16 px-4">
+        <h1 className="text-xl md:text-2xl font-bold mb-4 text-center">
+          Auction Not Found
+        </h1>
         <Button onClick={() => router.push("/auctions")}>
           Back to Auctions
         </Button>
@@ -44,31 +47,29 @@ export default function AuctionSimilarTab({
   };
 
   return (
-    <div className="container mx-auto py-8">
-      <Breadcrumb className="mb-8">
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/auctions">Auctions</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink href={`/auctions/${auctionId}`}>
-              Current Auction
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>Similar Auctions</BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+    <div className="space-y-6 md:space-y-8">
+      {isLoading ? (
+        <div className="flex justify-center items-center min-h-[200px] md:min-h-[300px]">
+          <Loading />
+        </div>
+      ) : (
+        <>
+          <h1 className="text-2xl md:text-3xl font-bold mb-4 md:mb-8">
+            Similar Auctions
+          </h1>
 
-      <h1 className="text-3xl font-bold mb-8">Similar Auctions</h1>
-
-      <AuctionFilter
-        similarAuctions={similarAuctions}
-        isLoading={isLoading}
-        onLoadMore={handleLoadMore}
-        hasMore={(similarAuctions?.length ?? 0) >= page * ITEMS_PER_PAGE}
-      />
+          <div className="space-y-4 md:space-y-6">
+            <AuctionFilter
+              similarAuctions={similarAuctions}
+              isLoading={isLoading}
+              onLoadMore={handleLoadMore}
+              hasMore={Boolean(
+                similarAuctions && similarAuctions.length === ITEMS_PER_PAGE
+              )}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 }

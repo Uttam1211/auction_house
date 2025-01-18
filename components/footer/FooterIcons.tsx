@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import Link from "next/link";
 
 const Facebook = dynamic(
   () => import("lucide-react").then((mod) => mod.Facebook),
@@ -22,23 +23,28 @@ const Youtube = dynamic(
 );
 
 export default function FooterIcons() {
+  const socialLinks = [
+    { href: "https://facebook.com", icon: Facebook, label: "Facebook" },
+    { href: "https://twitter.com", icon: Twitter, label: "Twitter" },
+    { href: "https://instagram.com", icon: Instagram, label: "Instagram" },
+    { href: "https://youtube.com", icon: Youtube, label: "YouTube" },
+  ];
+
   return (
-    <div className="flex space-x-2 mt-2 md:mt-0">
-      <a href="#" className="text-gray-400 hover:text-white">
-        <Facebook size={20} />
-      </a>
-      <a href="#" className="text-gray-400 hover:text-white">
-        <Twitter size={20} />
-      </a>
-      <a href="#" className="text-gray-400 hover:text-white">
-        <Instagram size={20} />
-      </a>
-      <a href="#" className="text-gray-400 hover:text-white">
-        <Pinterest size={20} />
-      </a>
-      <a href="#" className="text-gray-400 hover:text-white">
-        <Youtube size={20} />
-      </a>
+    <div className="flex items-center justify-center sm:justify-end gap-3 sm:gap-4">
+      {socialLinks.map(({ href, icon: Icon, label }) => (
+        <Link
+          key={label}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors duration-200"
+          aria-label={label}
+        >
+          <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
+          <span className="sr-only">{label}</span>
+        </Link>
+      ))}
     </div>
   );
 }

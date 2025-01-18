@@ -5,6 +5,7 @@ import { Grid, Hand, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import AuctionGrid from "@/components/auctions/AuctionGrid";
 import { Auction, Status } from "@prisma/client";
+import Loading from "../Loading";
 
 interface AuctionFilterProps {
   similarAuctions?: Auction[];
@@ -12,8 +13,6 @@ interface AuctionFilterProps {
   onLoadMore: () => void;
   hasMore: boolean;
 }
-
-
 
 type AuctionFilter = "all" | "active" | "ended";
 type SortOption = "name-asc" | "name-desc" | "date-asc" | "date-desc";
@@ -81,34 +80,35 @@ export default function AuctionFilter({
   ];
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div className="flex gap-4">
+    <div className="space-y-4 md:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="flex flex-wrap gap-2 sm:gap-4">
           {filterOptions.map((option) => (
             <Button
               key={option.id}
               variant="ghost"
               className={cn(
-                "flex items-center gap-2",
+                "flex items-center gap-2 text-sm py-2 px-3 sm:px-4",
                 filterType === option.id && "bg-primary/10 text-primary"
               )}
               onClick={() => setFilterType(option.id as AuctionFilter)}
             >
               <option.icon className="w-4 h-4" />
-              {option.label}
+              <span className="hidden sm:inline">{option.label}</span>
+              <span className="sm:hidden">{option.label.split(" ")[0]}</span>
             </Button>
           ))}
         </div>
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="flex flex-col sm:flex-row gap-4">
         <div className="flex-1 relative">
           <Input
             type="search"
             placeholder="Search auctions..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10"
+            className="pl-10 w-full"
           />
           <span className="absolute left-3 top-1/2 -translate-y-1/2">🔍</span>
         </div>
@@ -116,7 +116,7 @@ export default function AuctionFilter({
         <select
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value as SortOption)}
-          className="border rounded-md px-3 py-2"
+          className="border rounded-md px-3 py-2 text-sm bg-background"
         >
           <option value="name-asc">Name (A-Z)</option>
           <option value="name-desc">Name (Z-A)</option>
@@ -125,16 +125,21 @@ export default function AuctionFilter({
         </select>
       </div>
 
-      <div className="text-sm text-muted-foreground">
+      <div className="text-sm text-muted-foreground px-1">
         {filteredAuctions.length} similar auctions
       </div>
 
       <AuctionGrid featuredAuctions={filteredAuctions} />
 
       {hasMore && (
-        <div className="text-center mt-8">
-          <Button variant="outline" onClick={onLoadMore} disabled={isLoading}>
-            {isLoading ? "Loading..." : "Load More"}
+        <div className="text-center mt-6 md:mt-8">
+          <Button
+            variant="outline"
+            onClick={onLoadMore}
+            disabled={isLoading}
+            className="w-full sm:w-auto"
+          >
+            {isLoading ? <Loading /> : "Load More"}
           </Button>
         </div>
       )}

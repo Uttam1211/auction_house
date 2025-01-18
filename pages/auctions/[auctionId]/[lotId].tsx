@@ -10,7 +10,7 @@ import {
 import LotImageGallery from "@/components/lot/LotImageGallery";
 import LotBidSection from "@/components/lot/LotBidSection";
 import LotFilters from "@/components/lot/LotFilters";
-import { useLot } from "@/hooks/useLot";
+import { useLot } from "@/hooks/useLots";
 import {
   Accordion,
   AccordionContent,
@@ -23,11 +23,13 @@ import { useSimilarItems } from "@/hooks/useSimilarItems";
 import { useState } from "react";
 import { Category } from "@prisma/client";
 import { LotWithCategories } from "@/types/combinationPrismaTypes";
+import Loading from "@/components/Loading";
 export default function LotPage() {
   const router = useRouter();
   const { auctionId, lotId } = router.query;
+  if (!router.isReady) return <Loading />;
   const {
-    data: lot,
+    lot,
     isLoading,
     isError,
   } = useLot(auctionId as string, lotId as string);
@@ -46,7 +48,7 @@ export default function LotPage() {
     setPage((prev) => prev + 1);
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading || isLoadingSimilar) return <Loading />;
   if (isError || !lot) {
     return (
       <div className="container mx-auto py-16 text-center">

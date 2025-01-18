@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Auction, Category } from "@prisma/client";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,7 +8,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import AuctionFilter  from "@/components/auctions/AuctionFilter";
+import AuctionFilter from "@/components/auctions/AuctionFilter";
 import {
   Carousel,
   CarouselContent,
@@ -17,10 +17,15 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Image from "next/image";
+import AuctionTabs from "@/components/auctions/AuctionTabs";
 
 interface AuctionsPageProps {
-  auctions: any[]; // Replace with your Auction type
-  categories: any[]; // Replace with your Category type
+  auctions: (Auction & {
+    categories: (Category & { subcategories: any[] })[];
+    lots: any[];
+    _count: { lots: number };
+  })[];
+  categories: (Category & { subcategories: any[] })[];
   featuredImages: string[];
 }
 
@@ -37,27 +42,41 @@ export const getServerSideProps: GetServerSideProps = async () => {
             },
           },
           lots: true,
+          _count: {
+            select: {
+              lots: true,
+            },
+          },
         },
+        take: 10,
       }),
       prisma.category.findMany({
         include: {
           subcategories: true,
         },
-      })
+      }),
     ]);
+
+    const featuredImages = auctions
+      .filter((a) => a.isFeatured && a.images.length > 0)
+      .flatMap((a) => a.images);
 
     return {
       props: {
         auctions: JSON.parse(JSON.stringify(auctions)),
         categories: JSON.parse(JSON.stringify(categories)),
-        featuredImages: auctions
-          .filter((a: any) => a.isFeatured)
-          .map((a: any) => a.images),
+        featuredImages,
       },
     };
   } catch (error) {
     console.error("Error fetching data:", error);
-    return { props: { auctions: [], categories: [], featuredImages: [] } };
+    return { 
+      props: { 
+        auctions: [], 
+        categories: [], 
+        featuredImages: [] 
+      } 
+    };
   } finally {
     await prisma.$disconnect();
   }
@@ -70,6 +89,7 @@ export default function AuctionsPage({
 }: AuctionsPageProps) {
   return (
     <div className="container mx-auto px-4 py-8 space-y-8">
+      {/* Breadcrumb */}
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -82,6 +102,7 @@ export default function AuctionsPage({
         </BreadcrumbList>
       </Breadcrumb>
 
+      {/* Page Header */}
       <div>
         <h1 className="text-4xl font-bold mb-2">Auctions</h1>
         <p className="text-muted-foreground">
@@ -89,6 +110,7 @@ export default function AuctionsPage({
         </p>
       </div>
 
+      {/* Featured Images Carousel */}
       {featuredImages.length > 0 && (
         <Carousel className="w-full">
           <CarouselContent>

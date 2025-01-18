@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { LotWithCategories } from "@/types/combinationPrismaTypes";
+import { Category, Subcategory } from "@prisma/client";
 
 interface LotCardProps {
   lot: LotWithCategories;
@@ -33,16 +34,18 @@ const categoryColors: { [key: string]: string } = {
 export default function LotCard({ lot, viewMode }: LotCardProps) {
   return (
     <Link
-      href={`/auctions/${lot.auctionId}/${lot.id}`}
+      href={`/auctions/${lot.auctionId}/lots/${lot.id}`}
       className={cn(
         "group relative overflow-hidden border rounded-lg dark:bg-gray-800 dark:border-gray-700 hover:shadow-lg transition-all duration-300 block",
-        viewMode === "list" && "flex gap-6"
+        viewMode === "list" ? "flex flex-col md:flex-row gap-4 md:gap-6" : ""
       )}
     >
       <div
         className={cn(
           "relative overflow-hidden",
-          viewMode === "list" ? "w-48" : "aspect-square"
+          viewMode === "list"
+            ? "w-full md:w-48 aspect-video md:aspect-square"
+            : "aspect-square"
         )}
       >
         <Image
@@ -54,14 +57,19 @@ export default function LotCard({ lot, viewMode }: LotCardProps) {
       </div>
 
       <div className="p-4 flex-1 relative">
-        <button className="absolute top-2 right-2 p-2 rounded-full bg-white/80 dark:bg-gray-900/80 hover:bg-white dark:hover:bg-gray-900 transition-colors">
-          <Heart className="w-5 h-5 text-gray-600 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-500 transition-colors" />
-        </button>
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className="absolute top-2 right-2 z-10"
+        >
+          <button className="p-2 rounded-full bg-white/80 dark:bg-gray-900/80 hover:bg-white dark:hover:bg-gray-900 transition-colors">
+            <Heart className="w-5 h-5 text-gray-600 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-500 transition-colors" />
+          </button>
+        </div>
 
-        <h3 className="font-semibold text-lg mb-2 dark:text-white">
+        <h3 className="font-semibold text-lg mb-2 dark:text-white line-clamp-2">
           {lot.title}
         </h3>
-        <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
+        <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2">
           {lot.description}
         </p>
         <div className="flex justify-between items-center mb-3">
@@ -75,21 +83,26 @@ export default function LotCard({ lot, viewMode }: LotCardProps) {
           </div>
         </div>
 
-        {/* Category Tags */}
+        {/* Category and subCategory Tags */}
         <div className="flex gap-2 flex-wrap">
-          {lot.categories.slice(0, 4).map((category) => (
-            <Badge
-              key={category.id}
-              variant="secondary"
-              className={cn(
-                "font-medium text-xs px-2 py-0.5 rounded-full",
-                categoryColors[category.name.toLowerCase()] ||
-                  categoryColors.default
-              )}
-            >
-              {category.name}
-            </Badge>
-          ))}
+          {[
+            ...lot.categories.map((cat) => ({ id: cat.id, name: cat.name })),
+            ...lot.categories.flatMap((cat) => cat.subcategories ?? []),
+          ]
+            .slice(0, 4)
+            .map((item) => (
+              <Badge
+                key={item.id}
+                variant="secondary"
+                className={cn(
+                  "font-medium text-xs px-2 py-0.5 rounded-full",
+                  categoryColors[item.name.toLowerCase()] ||
+                    categoryColors.default
+                )}
+              >
+                {item.name}
+              </Badge>
+            ))}
         </div>
       </div>
     </Link>

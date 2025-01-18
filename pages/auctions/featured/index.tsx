@@ -24,7 +24,13 @@ export const getStaticProps: GetStaticProps = async () => {
           lots: true,
           categories: true,
         },
+        take: 6,
+        orderBy: {
+          timeStamp: "desc",
+        },
+        
       }),
+
       prisma.category.findMany({
         include: { subcategories: true },
       }),

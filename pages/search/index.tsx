@@ -11,6 +11,7 @@ import { useSearch } from "@/hooks/useSearch";
 import { GetServerSideProps } from "next";
 import { PrismaClient, Subcategory } from "@prisma/client";
 import { Category } from "@prisma/client";
+import Loading from "@/components/Loading";
 
 interface SearchPageProps {
   categoriesData: Category[];
@@ -127,89 +128,116 @@ export default function SearchPage({
   }, [initialQuery, initialType]);
 
   return (
-    <div className="container mx-auto py-8">
-      <div className="mb-8">
-        <form onSubmit={handleSearch} className="flex gap-4 mb-4">
+    <div className="container mx-auto px-4 py-4 md:py-8">
+      <div className="space-y-4 md:space-y-6">
+        <form
+          onSubmit={handleSearch}
+          className="flex flex-col sm:flex-row gap-3 sm:gap-4"
+        >
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-4 w-4 sm:h-5 sm:w-5" />
             <Input
               type="search"
               placeholder="Search auctions, lots, events..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
+              className="pl-10 w-full"
             />
           </div>
           <Button
             variant="outline"
             type="button"
             onClick={() => setShowFilters(!showFilters)}
+            className="w-full sm:w-auto"
           >
-            <SlidersHorizontal className="h-5 w-5 mr-2" />
+            <SlidersHorizontal className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
             Filters
           </Button>
         </form>
 
         {showFilters && (
-          <AdvancedFilters
-            categoriesData={categoriesData}
-            subcategoriesData={subcategoriesData}
-            currentFilters={filters}
-            onApply={handleFilterApply}
-          />
+          <div className="rounded-lg border bg-card p-4 md:p-6">
+            <AdvancedFilters
+              categoriesData={categoriesData}
+              subcategoriesData={subcategoriesData}
+              currentFilters={filters}
+              onApply={handleFilterApply}
+            />
+          </div>
         )}
       </div>
 
-      <Tabs defaultValue={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="mb-8">
-          <TabsTrigger value="all">All Results</TabsTrigger>
-          <TabsTrigger value="auctions">Auctions</TabsTrigger>
-          <TabsTrigger value="lots">Lots</TabsTrigger>
-          <TabsTrigger value="events">Events</TabsTrigger>
-          <TabsTrigger value="contacts">Contacts</TabsTrigger>
+      <Tabs
+        defaultValue={activeTab}
+        onValueChange={setActiveTab}
+        className="mt-6 md:mt-8"
+      >
+        <TabsList className="mb-6 md:mb-8 w-full flex overflow-x-auto no-scrollbar">
+          <TabsTrigger value="all" className="flex-1">
+            All Results
+          </TabsTrigger>
+          <TabsTrigger value="auctions" className="flex-1">
+            Auctions
+          </TabsTrigger>
+          <TabsTrigger value="lots" className="flex-1">
+            Lots
+          </TabsTrigger>
+          <TabsTrigger value="events" className="flex-1">
+            Events
+          </TabsTrigger>
+          <TabsTrigger value="contacts" className="flex-1">
+            Contacts
+          </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="all">
-          {isLoading ? (
-            <div>Loading...</div>
-          ) : isError ? (
-            <div>Error loading results</div>
-          ) : (
+        <div className="space-y-4 md:space-y-6">
+          <TabsContent value="all">
+            {isLoading ? (
+              <div className="flex justify-center py-8">
+                <Loading />
+              </div>
+            ) : isError ? (
+              <div className="text-center py-8 text-red-500">
+                Error loading results
+              </div>
+            ) : (
+              <SearchResults
+                query={searchQuery}
+                filters={filters}
+                data={data || null}
+              />
+            )}
+          </TabsContent>
+
+          <TabsContent value="auctions">
             <SearchResults
               query={searchQuery}
-              filters={filters}
+              filters={{ ...filters, type: "auction" }}
               data={data || null}
             />
-          )}
-        </TabsContent>
-        <TabsContent value="auctions">
-          <SearchResults
-            query={searchQuery}
-            filters={{ ...filters, type: "auction" }}
-            data={data || null}
-          />
-        </TabsContent>
-        <TabsContent value="lots">
-          <SearchResults
-            query={searchQuery}
-            filters={{ ...filters, type: "lot" }}
-            data={data || null}
-          />
-        </TabsContent>
-        <TabsContent value="events">
-          <SearchResults
-            query={searchQuery}
-            filters={{ ...filters, type: "event" }}
-            data={data || null}
-          />
-        </TabsContent>
-        <TabsContent value="contacts">
-          <SearchResults
-            query={searchQuery}
-            filters={{ ...filters, type: "contact" }}
-            data={data || null}
-          />
-        </TabsContent>
+          </TabsContent>
+          <TabsContent value="lots">
+            <SearchResults
+              query={searchQuery}
+              filters={{ ...filters, type: "lot" }}
+              data={data || null}
+            />
+          </TabsContent>
+          <TabsContent value="events">
+            <SearchResults
+              query={searchQuery}
+              filters={{ ...filters, type: "event" }}
+              data={data || null}
+            />
+          </TabsContent>
+          <TabsContent value="contacts">
+            <SearchResults
+              query={searchQuery}
+              filters={{ ...filters, type: "contact" }}
+              data={data || null}
+            />
+          </TabsContent>
+        </div>
       </Tabs>
     </div>
   );

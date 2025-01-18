@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import LotCard from "@/components/auctions/LotCard";
 import { Status } from "@prisma/client";
 import { LotWithCategories } from "@/types/combinationPrismaTypes";
+import Loading from "../Loading";
 
 interface LotFiltersProps {
   similarLots?: LotWithCategories[];
@@ -144,7 +145,7 @@ export default function LotFilters({
       {hasMore && (
         <div className="text-center mt-8">
           <Button variant="outline" onClick={onLoadMore} disabled={isLoading}>
-            {isLoading ? "Loading..." : "Load More"}
+            {isLoading ? <Loading /> : "Load More"}
           </Button>
         </div>
       )}

@@ -53,7 +53,7 @@ enum Role {
 model Category {
   id            String        @id @default(uuid())
   name          String
-  image         String
+  image         String?
   subcategories Subcategory[]
   auctions      Auction[]     @relation("AuctionCategories")
   lots          Lot[]         @relation("LotCategories")
@@ -124,6 +124,7 @@ model ViewingDate {
 model Lot {
   id             String   @id @default(uuid())
   title          String
+  lotNumber      String?
   artist         String?
   estimatedPrice String?
   currentBid     Float?
@@ -160,11 +161,11 @@ model Lot {
 
 model Bid {
   id        String   @id @default(uuid())
-  bidder    String
-  amount    Float
+  bidder    String?
+  amount    Float?
   timestamp DateTime @default(now())
-  lotId     String
-  lot       Lot      @relation(fields: [lotId], references: [id])
+  lotId     String?
+  lot       Lot?      @relation(fields: [lotId], references: [id])
 }
 
 

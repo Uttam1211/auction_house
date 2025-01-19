@@ -1,0 +1,13 @@
+-- DropForeignKey
+ALTER TABLE "Bid" DROP CONSTRAINT "Bid_lotId_fkey";
+
+-- AlterTable
+ALTER TABLE "Bid" ALTER COLUMN "bidder" DROP NOT NULL,
+ALTER COLUMN "amount" DROP NOT NULL,
+ALTER COLUMN "lotId" DROP NOT NULL;
+
+-- AlterTable
+ALTER TABLE "Lot" ADD COLUMN     "lotNumber" TEXT;
+
+-- AddForeignKey
+ALTER TABLE "Bid" ADD CONSTRAINT "Bid_lotId_fkey" FOREIGN KEY ("lotId") REFERENCES "Lot"("id") ON DELETE SET NULL ON UPDATE CASCADE;

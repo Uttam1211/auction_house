@@ -34,7 +34,7 @@ const categoryColors: { [key: string]: string } = {
 export default function LotCard({ lot, viewMode }: LotCardProps) {
   return (
     <Link
-      href={`/auctions/${lot.auctionId}/lots/${lot.id}`}
+      href={`/auctions/${lot.auctionId}/${lot.id}`}
       className={cn(
         "group relative overflow-hidden border rounded-lg dark:bg-gray-800 dark:border-gray-700 hover:shadow-lg transition-all duration-300 block",
         viewMode === "list" ? "flex flex-col md:flex-row gap-4 md:gap-6" : ""

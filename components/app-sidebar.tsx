@@ -6,6 +6,7 @@ import {
   History,
   Settings,
   CheckCircle,
+  List,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -41,6 +42,13 @@ const items = [
     href: "/admin/users",
     color: "text-violet-500",
   },
+  {
+    label:"Categories",
+    icon: List,
+    href:"/admin/categories",
+    color:"text-emerald-500"
+  }
+  ,
   {
     label: "Auctions",
     icon: Gavel,

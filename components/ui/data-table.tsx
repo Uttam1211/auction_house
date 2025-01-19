@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ArrowDownAZ, ArrowUpZA } from "lucide-react";
+import { ArrowDownAZ, ArrowUpZA, StarIcon } from "lucide-react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -30,17 +30,27 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import router, { useRouter } from "next/router";
+import { Loader2Icon, ImageIcon } from "lucide-react";
+import { useTransition } from "react";
+import { toast } from "sonner";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   searchKey?: string;
+  totalPages?: number;
+  cp?: number;
+  isLoading?: boolean;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   searchKey,
+  totalPages,
+  cp,
+  isLoading = false,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -67,13 +77,36 @@ export function DataTable<TData, TValue>({
     },
   });
 
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="flex items-center gap-2">
+          <Loader2Icon className="h-6 w-6 animate-spin" />
+          <span>Loading items...</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isLoading && data.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center h-64 text-center">
+        <ImageIcon className="h-12 w-12 text-gray-400 mb-4" />
+        <h3 className="font-medium text-lg mb-2">No items found</h3>
+        <p className="text-sm text-gray-500">
+          Get started by adding your first auction item.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-4">
         {searchKey && (
           <div className="flex-1">
             <Input
-              placeholder="Search..."
+              placeholder={`Search ${searchKey}...`}
               value={
                 (table.getColumn(searchKey)?.getFilterValue() as string) ?? ""
               }
@@ -88,13 +121,17 @@ export function DataTable<TData, TValue>({
           <p className="text-sm text-muted-foreground">Rows per page</p>
           <Select
             value={rowsPerPage}
-            onValueChange={(value) => setRowsPerPage(value)}
+            onValueChange={(value) => {
+              setRowsPerPage(value);
+              //set global state
+              localStorage.setItem("limit", value);
+            }}
           >
             <SelectTrigger className="w-[100px]">
-              <SelectValue placeholder="10" />
+              <SelectValue placeholder={rowsPerPage} />
             </SelectTrigger>
             <SelectContent>
-              {[10, 20, 30, 40, 50].map((pageSize) => (
+              {[5, 10].map((pageSize) => (
                 <SelectItem key={pageSize} value={pageSize.toString()}>
                   {pageSize}
                 </SelectItem>
@@ -137,29 +174,20 @@ export function DataTable<TData, TValue>({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
+            {table.getRowModel().rows?.length
+              ? table.getRowModel().rows.map((row) => (
+                  <TableRow key={row.id}>
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              : null}
           </TableBody>
         </Table>
       </div>
@@ -182,8 +210,7 @@ export function DataTable<TData, TValue>({
         </Button>
       </div>
       <div className="text-sm text-muted-foreground">
-        Page {table.getState().pagination.pageIndex + 1} of{" "}
-        {table.getPageCount()}
+        Page {cp} of {totalPages ? totalPages : table.getPageCount()}
       </div>
     </div>
   );

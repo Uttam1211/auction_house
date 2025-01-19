@@ -13,7 +13,7 @@ import { Lot, Status } from "@prisma/client";
 import { ArrowRight } from "lucide-react";
 
 export default function FeaturedLots() {
-  const { lots } = useAuctions({ featured: true, limit: 5 });
+  const { lots, isLoading } = useAuctions({ isFeatured: true, limit: 5 });
 
   return (
     <section className="py-8 sm:py-16 px-4 sm:px-6">

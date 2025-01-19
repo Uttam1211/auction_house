@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { CategoryWithSubcategories } from "@/types/combinationPrismaTypes";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { IMAGES } from "@/config/images";
 
 interface CategoryNavProps {
   categories: CategoryWithSubcategories[];
@@ -163,7 +164,7 @@ export default function CategoryNav({ categories }: CategoryNavProps) {
                         </div>
                         <div className="w-48 p-4 bg-gray-50 dark:bg-gray-900 rounded-r-lg">
                           <Image
-                            src={`/path/to/images/${category.image}`}
+                            src={category.image || IMAGES.DEFAULT_CATEGORY}
                             alt={category.name}
                             width={200}
                             height={200}

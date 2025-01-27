@@ -31,17 +31,19 @@ export default function LotPage() {
   const ITEMS_PER_PAGE = 8;
   const [page, setPage] = useState(1);
   const { lot, isLoading, isError } = useLot(
-    auctionId as string,
-    lotId as string
+    (auctionId as string) || "",
+    (lotId as string) || ""
   );
   const { similarLots, isLoading: isLoadingSimilar } = useSimilarItems(
-    auctionId as string,
-    lotId as string,
+    (auctionId as string) || "",
+    (lotId as string) || "",
     page,
     ITEMS_PER_PAGE
   );
 
-  if (!router.isReady) return <Loading />;
+  if (!router.isReady || !auctionId || !lotId) {
+    return <Loading />;
+  }
 
   const handleLoadMore = () => {
     setPage((prev) => prev + 1);

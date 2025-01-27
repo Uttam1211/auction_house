@@ -20,9 +20,11 @@ import Loading from "@/components/Loading";
 export default function AuctionDetails() {
   const router = useRouter();
   const { auctionId } = router.query;
-  const { auction, isLoading, isError } = useAuction(auctionId as string);
+  const { auction, isLoading, isError } = useAuction(
+    (auctionId as string) || ""
+  );
 
-  if (!router.isReady) {
+  if (!router.isReady || !auctionId) {
     return <Loading />;
   }
 

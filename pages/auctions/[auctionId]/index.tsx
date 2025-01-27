@@ -17,34 +17,16 @@ import {
 } from "@/components/ui/breadcrumb";
 import Loading from "@/components/Loading";
 
-export default function AuctionDetails({
-  auction: initialAuction,
-}: {
-  auction: any;
-}) {
+export default function AuctionDetails() {
   const router = useRouter();
   const { auctionId } = router.query;
-  const {
-    auction = initialAuction,
-    isLoading,
-    isError,
-  } = useAuction((auctionId as string) || "");
+  const { auction, isLoading, isError } = useAuction(
+    (auctionId as string) || ""
+  );
 
-  if (router.isFallback) {
+  if (!router.isReady || !auctionId) {
     return <Loading />;
   }
-
-  const sortFields = [
-    { value: "title" as keyof Lot, label: "Title" },
-    { value: "artist" as keyof Lot, label: "Artist" },
-    { value: "currentBid" as keyof Lot, label: "Current Bid" },
-    { value: "estimatedPrice" as keyof Lot, label: "Estimated Price" },
-  ];
-
-  const filterFields = [
-    { value: "title" as keyof Lot, label: "Title" },
-    { value: "artist" as keyof Lot, label: "Artist" },
-  ];
 
   if (isLoading) return <Loading />;
 
@@ -58,6 +40,18 @@ export default function AuctionDetails({
       </div>
     );
   }
+
+  const sortFields = [
+    { value: "title" as keyof Lot, label: "Title" },
+    { value: "artist" as keyof Lot, label: "Artist" },
+    { value: "currentBid" as keyof Lot, label: "Current Bid" },
+    { value: "estimatedPrice" as keyof Lot, label: "Estimated Price" },
+  ];
+
+  const filterFields = [
+    { value: "title" as keyof Lot, label: "Title" },
+    { value: "artist" as keyof Lot, label: "Artist" },
+  ];
 
   return (
     <>
@@ -123,49 +117,4 @@ export default function AuctionDetails({
       </div>
     </>
   );
-}
-
-export async function getStaticPaths() {
-  // Fetch list of auction IDs
-  const auctions = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/auctions`
-  ).then((res) => res.json());
-
-  const paths = auctions.map((auction: { id: string }) => ({
-    params: { auctionId: auction.id.toString() },
-  }));
-
-  return {
-    paths,
-    fallback: true, // or 'blocking' if you prefer
-  };
-}
-
-export async function getStaticProps({
-  params,
-}: {
-  params: { auctionId: string };
-}) {
-  if (!params.auctionId) {
-    return {
-      notFound: true,
-    };
-  }
-
-  try {
-    const auction = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/auctions/${params.auctionId}`
-    ).then((res) => res.json());
-
-    return {
-      props: {
-        auction,
-      },
-      revalidate: 60, // Revalidate every minute
-    };
-  } catch (error) {
-    return {
-      notFound: true,
-    };
-  }
 }

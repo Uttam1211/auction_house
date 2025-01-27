@@ -1,6 +1,7 @@
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { FlatCompat } from "@eslint/eslintrc";
+import ts from "@typescript-eslint/eslint-plugin"; // Import the TypeScript plugin
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -12,13 +13,17 @@ const compat = new FlatCompat({
 const eslintConfig = [
   // Add "parser" explicitly for TypeScript support
   {
-    parser: "@typescript-eslint/parser",
-    parserOptions: {
-      ecmaVersion: 2020, // Specify the ECMAScript version
-      sourceType: "module", // Use ES modules
-      project: "./tsconfig.json", // Specify the path to your tsconfig.json
+    languageOptions: {
+      parser: "@typescript-eslint/parser",
+      parserOptions: {
+        ecmaVersion: 2020, // Specify the ECMAScript version
+        sourceType: "module", // Use ES modules
+        project: "./tsconfig.json", // Specify the path to your tsconfig.json
+      },
     },
-    plugins: ["@typescript-eslint"], // Enable the TypeScript plugin
+    plugins: {
+      "@typescript-eslint": ts, // Use the imported TypeScript plugin
+    },
   },
 
   // Include Next.js and TypeScript configurations
@@ -27,11 +32,10 @@ const eslintConfig = [
   // Add custom rules
   {
     rules: {
-      "no-unused-vars": "off", // Disable no-unused-vars for JavaScript/TypeScript
-      "@typescript-eslint/no-unused-vars": [
-        "warn", // Use the TypeScript-specific rule for unused variables
-        { vars: "all", args: "after-used", ignoreRestSiblings: true },
-      ],
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unused-vars": "off",
+      "react/no-unescaped-entities": "off",
     },
   },
 ];

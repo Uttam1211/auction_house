@@ -9,11 +9,22 @@ import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { Heart } from "lucide-react";
 import Link from "next/link";
-import { Lot, Status } from "@prisma/client";
+import { Lot as PrismaLot, Status, Category } from "@prisma/client";
 import { ArrowRight } from "lucide-react";
 
+interface CategoryWithSub extends Category {
+  subcategories?: { id: string; name: string }[];
+}
+
+interface LotWithCategories extends PrismaLot {
+  categories: CategoryWithSub[];
+}
+
 export default function FeaturedLots() {
-  const { lots, isLoading } = useAuctions({ isFeatured: true, limit: 5 });
+  const { auctions: lots, isLoading } = useAuctions({
+    isFeatured: true,
+    limit: 5,
+  });
 
   return (
     <section className="py-8 sm:py-16 px-4 sm:px-6">
@@ -39,7 +50,7 @@ export default function FeaturedLots() {
           className="w-full"
         >
           <CarouselContent className="-ml-2 sm:-ml-4">
-            {lots?.map((lot: Lot) => (
+            {lots?.map((lot: LotWithCategories) => (
               <CarouselItem
                 key={lot.id}
                 className="pl-2 sm:pl-4 basis-full sm:basis-1/2 lg:basis-1/3"
@@ -84,12 +95,12 @@ export default function FeaturedLots() {
 
                         <div className="flex flex-wrap gap-1 sm:gap-2">
                           {[
-                            ...lot.categories.map((cat) => ({
+                            ...lot.categories?.map((cat: CategoryWithSub) => ({
                               id: cat.id,
                               name: cat.name,
                             })),
-                            ...lot.categories.flatMap(
-                              (cat) => cat.subcategories ?? []
+                            ...lot.categories?.flatMap(
+                              (cat: CategoryWithSub) => cat.subcategories ?? []
                             ),
                           ]
                             .slice(0, 3)

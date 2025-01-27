@@ -14,7 +14,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"; // Import Shadcn Dialog components
-import {toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 type User = {
@@ -63,32 +63,41 @@ const columns: ColumnDef<User>[] = [
   {
     header: "Actions",
     accessorKey: "actions",
-    cell: ({ row }) => {
-      const { deleteUser, isLoading } = useUsers();
-
-      return (
-        <div className="space-x-2">
-          <Button
-            size="sm"
-            variant="destructive"
-            onClick={() => deleteUser(row.original.id)}
-            disabled={isLoading}
-          >
-            Delete
-          </Button>
-        </div>
-      );
-    },
+    cell: ({ row }) => <UserActionsCell row={row} />,
   },
 ];
+
+function UserActionsCell({ row }: { row: any }) {
+  const { deleteUser, isLoading } = useUsers();
+
+  return (
+    <div className="space-x-2">
+      <Button
+        size="sm"
+        variant="destructive"
+        onClick={() => deleteUser(row.original.id)}
+        disabled={isLoading}
+      >
+        Delete
+      </Button>
+    </div>
+  );
+}
 
 export default function UsersPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [formData, setFormData] = useState({
     email_address: "",
   });
-  const { users, pagination, isLoading, error, inviteUser, handlePageChange, success } =
-    useUsers();
+  const {
+    users,
+    pagination,
+    isLoading,
+    error,
+    inviteUser,
+    handlePageChange,
+    success,
+  } = useUsers();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({

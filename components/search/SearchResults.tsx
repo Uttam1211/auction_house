@@ -18,6 +18,7 @@ export default function SearchResults({
   filters,
   data,
 }: SearchResultsProps) {
+  const { isLoading, isError } = useSearch(query, filters);
   // Filter results based on type
   const filteredResults = data?.results.filter(
     (result) =>
@@ -49,7 +50,6 @@ export default function SearchResults({
     );
   }
 
-  const { isLoading, isError } = useSearch(query, filters);
 
   if (isLoading) {
     return <SearchSkeleton />;

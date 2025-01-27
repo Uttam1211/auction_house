@@ -19,13 +19,12 @@ import Loading from "@/components/Loading";
 
 export default function AuctionDetails() {
   const router = useRouter();
+  const { auctionId } = router.query;
+  const { auction, isLoading, isError } = useAuction(auctionId as string);
 
   if (!router.isReady) {
     return <Loading />;
   }
-
-  const { auctionId } = router.query;
-  const { auction, isLoading, isError } = useAuction(auctionId as string);
 
   const sortFields = [
     { value: "title" as keyof Lot, label: "Title" },

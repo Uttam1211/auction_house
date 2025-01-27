@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import TableSort from "./TableSort";
 import TableFilter from "./TableFilter";
 import TablePagination from "./TablePagination";
@@ -28,11 +28,7 @@ export default function TableControls<T>({
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const [filters, setFilters] = useState<Record<string, string>>({});
 
-  useEffect(() => {
-    processData();
-  }, [data, sortField, sortOrder, filters]);
-
-  const processData = () => {
+  const processData = useCallback(() => {
     let processedData = [...data];
 
     // Apply filters
@@ -56,7 +52,11 @@ export default function TableControls<T>({
     });
 
     onDataChange(processedData);
-  };
+  }, [data, filters, sortField, sortOrder, onDataChange]);
+
+  useEffect(() => {
+    processData();
+  }, [processData]);
 
   return (
     <div className="space-y-4">

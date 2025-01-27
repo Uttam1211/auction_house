@@ -387,10 +387,12 @@ function CategoryForm({
           <div className="flex-shrink-0">
             <div className="w-24 h-24 rounded-lg border-2 border-dashed border-gray-200 dark:border-gray-600 flex items-center justify-center overflow-hidden bg-gray-50 dark:bg-gray-700">
               {image ? (
-                <img
+                <Image
                   src={image}
                   alt="Category"
                   className="w-full h-full object-cover"
+                  width={100}
+                  height={100}
                 />
               ) : (
                 <ImageIcon className="w-8 h-8 text-gray-400" />

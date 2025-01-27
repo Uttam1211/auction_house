@@ -67,6 +67,7 @@ interface AuctionsPageProps {
   totalPages: number;
   currentPage: number;
 }
+import Image from "next/image";
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const page = Number(query.page) || 1;
@@ -741,10 +742,12 @@ function AuctionForm({ auction, onSuccess }: any) {
                           key={index}
                           className="relative group aspect-square"
                         >
-                          <img
+                          <Image
                             src={img}
                             alt={`Image ${index + 1}`}
                             className="w-full h-full object-cover rounded-lg"
+                            width={100}
+                            height={100}
                           />
                           <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                             <Button

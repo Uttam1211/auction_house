@@ -9,6 +9,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
@@ -165,27 +166,7 @@ export default function ItemsPage() {
     {
       accessorKey: "bidHistory",
       header: "Bids",
-      cell: ({ row }) => {
-        const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-        return (
-          <>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsDialogOpen(true)}
-            >
-              {row.original._count.bidHistory} bids
-            </Button>
-
-            <BidHistoryDialog
-              lot={row.original}
-              open={isDialogOpen}
-              setOpen={setIsDialogOpen}
-            />
-          </>
-        );
-      },
+      cell: ({ row }) => <BidHistoryCell row={row} />,
     },
     {
       id: "actions",
@@ -712,10 +693,12 @@ function LotForm({
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                 {formData.images.map((img: any, index: any) => (
                   <div key={index} className="relative group aspect-square">
-                    <img
+                    <Image
                       src={img}
                       alt={`Image ${index + 1}`}
                       className="w-full h-full object-cover rounded-lg"
+                      width={100}
+                      height={100}
                     />
                     <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                       <Button
@@ -870,5 +853,24 @@ function BidHistoryDialog({
         )}
       </DialogContent>
     </Dialog>
+  );
+}
+
+// Add this component before the BidHistoryDialog component
+function BidHistoryCell({ row }: { row: any }) {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  return (
+    <>
+      <Button variant="ghost" size="sm" onClick={() => setIsDialogOpen(true)}>
+        {row.original._count.bidHistory} bids
+      </Button>
+
+      <BidHistoryDialog
+        lot={row.original}
+        open={isDialogOpen}
+        setOpen={setIsDialogOpen}
+      />
+    </>
   );
 }

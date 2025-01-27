@@ -24,25 +24,24 @@ import { useState } from "react";
 import { Category } from "@prisma/client";
 import { LotWithCategories } from "@/types/combinationPrismaTypes";
 import Loading from "@/components/Loading";
+
 export default function LotPage() {
   const router = useRouter();
   const { auctionId, lotId } = router.query;
-  if (!router.isReady) return <Loading />;
-  const {
-    lot,
-    isLoading,
-    isError,
-  } = useLot(auctionId as string, lotId as string);
-
   const ITEMS_PER_PAGE = 8;
   const [page, setPage] = useState(1);
-
+  const { lot, isLoading, isError } = useLot(
+    auctionId as string,
+    lotId as string
+  );
   const { similarLots, isLoading: isLoadingSimilar } = useSimilarItems(
     auctionId as string,
     lotId as string,
     page,
     ITEMS_PER_PAGE
   );
+
+  if (!router.isReady) return <Loading />;
 
   const handleLoadMore = () => {
     setPage((prev) => prev + 1);

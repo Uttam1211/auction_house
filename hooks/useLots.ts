@@ -55,7 +55,7 @@ export function useLots({
 }
 
 // Hook for fetching a single lot by ID
-export function useLot(auctionId: string, lotId: string) {
+export function useLot(auctionId: string, lotId: string, initialData?: any) {
   if (!auctionId || !lotId) {
     throw new Error("Both auctionId and lotId are required for useLot");
   }
@@ -66,6 +66,7 @@ export function useLot(auctionId: string, lotId: string) {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
+    fallbackData: initialData,
   });
 
   return {

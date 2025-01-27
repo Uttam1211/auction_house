@@ -21,18 +21,56 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useSimilarItems } from "@/hooks/useSimilarItems";
 import { useState } from "react";
-import { Category } from "@prisma/client";
+import { Category, Lot } from "@prisma/client";
 import { LotWithCategories } from "@/types/combinationPrismaTypes";
 import Loading from "@/components/Loading";
 
-export default function LotPage() {
+// Fetch all possible paths for [auctionId]/[lotId]
+export async function getStaticPaths() {
+  // Fetch the list of auctions and lots from your API or database
+  const auctions = await fetch("/api/auctions").then((res) => res.json());
+
+  // Generate paths for all lots
+  const paths = auctions.flatMap(
+    (auction: { id: string; lots: { id: string }[] }) =>
+      auction.lots.map((lot: { id: string }) => ({
+        params: { auctionId: auction.id.toString(), lotId: lot.id.toString() },
+      }))
+  );
+
+  return { paths, fallback: "blocking" }; // Use 'blocking' or true for fallback behavior
+}
+
+// Fetch data for a specific lot
+export async function getStaticProps({
+  params,
+}: {
+  params: { auctionId: string; lotId: string };
+}) {
+  const { auctionId, lotId } = params;
+
+  // Fetch lot data based on auctionId and lotId
+  const lot = await fetch(`/api/auctions/${auctionId}/lots/${lotId}`).then(
+    (res) => res.json()
+  );
+
+  // If the lot doesn't exist, return a 404
+  if (!lot) {
+    return { notFound: true };
+  }
+
+  return { props: { initialLot: lot } };
+}
+
+export default function LotPage({ initialLot }: { initialLot: Lot }) {
   const router = useRouter();
   const { auctionId, lotId } = router.query;
   const ITEMS_PER_PAGE = 8;
   const [page, setPage] = useState(1);
   const { lot, isLoading, isError } = useLot(
     (auctionId as string) || "",
-    (lotId as string) || ""
+    (lotId as string) || "",
+    initialLot
   );
   const { similarLots, isLoading: isLoadingSimilar } = useSimilarItems(
     (auctionId as string) || "",

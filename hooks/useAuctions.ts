@@ -92,7 +92,7 @@ export function useAuctions({
 
 
 // Hook for fetching a single auction by ID
-export function useAuction(auctionId: string) {
+export function useAuction(auctionId: string, initialData?: any) {
   if (!auctionId) {
     throw new Error("auctionId is required for useAuction");
   }
@@ -103,6 +103,7 @@ export function useAuction(auctionId: string) {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
+    fallbackData: initialData,
   });
 
   return {

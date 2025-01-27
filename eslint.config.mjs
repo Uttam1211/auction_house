@@ -38,6 +38,18 @@ const eslintConfig = [
       "react/no-unescaped-entities": "off",
     },
   },
+  {
+    ignores: [
+      "node_modules/",
+      ".next/",
+      ".env",
+      ".env.local",
+      ".env.development.local",
+      ".env.test.local",
+      ".env.production.local",
+      "**/*.mjs",
+    ],
+  },
 ];
 
 export default eslintConfig;

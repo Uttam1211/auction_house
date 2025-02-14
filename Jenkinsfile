@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('checkout'){
+        stage('installing dependencies'){
             steps {
                 echo 'checkout and ver checking...'
                 sh 'npm install'

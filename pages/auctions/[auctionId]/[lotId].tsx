@@ -31,16 +31,23 @@ export default function LotPage() {
   const ITEMS_PER_PAGE = 8;
   const [page, setPage] = useState(1);
 
-  // Only call hooks when IDs are available
-  const ready = router.isReady && auctionId && lotId;
-  const { lot, isLoading, isError } = ready
-    ? useLot(auctionId as string, lotId as string)
-    : { lot: null, isLoading: true, isError: false };
-  const { similarLots, isLoading: isLoadingSimilar } = ready
-    ? useSimilarItems(auctionId as string, lotId as string, page, ITEMS_PER_PAGE)
-    : { similarLots: [], isLoading: true };
+  // Always call hooks, pass empty string if not ready
+  const { lot, isLoading, isError } = useLot(
+    typeof auctionId === "string" ? auctionId : "",
+    typeof lotId === "string" ? lotId : ""
+  );
+  const { similarLots, isLoading: isLoadingSimilar } = useSimilarItems(
+    typeof auctionId === "string" ? auctionId : "",
+    typeof lotId === "string" ? lotId : "",
+    page,
+    ITEMS_PER_PAGE
+  );
 
-  // Early return for router not ready or missing params
+  // Only render when router and IDs are ready
+  const ready =
+    router.isReady &&
+    typeof auctionId === "string" &&
+    typeof lotId === "string";
   if (!ready) {
     return <Loading />;
   }

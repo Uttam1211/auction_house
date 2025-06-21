@@ -28,6 +28,11 @@ import Loading from "@/components/Loading";
 export default function LotPage() {
   const router = useRouter();
   const { auctionId, lotId } = router.query;
+  // Default items per page for similar lots
+  // This can be adjusted based on your requirements
+  if (!auctionId || !lotId) {
+  return null; // Or show a loading state, or throw a controlled error
+}
   const ITEMS_PER_PAGE = 8;
   const [page, setPage] = useState(1);
   const { lot, isLoading, isError } = useLot(

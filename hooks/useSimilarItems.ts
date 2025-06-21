@@ -1,11 +1,9 @@
 import useSWR from "swr";
-import { Lot } from "@prisma/client";
-import { Auction } from "@prisma/client";
 import { LotWithCategories } from "@/types/combinationPrismaTypes";
 
 interface SimilarItemsResponse {
   similarLots?: LotWithCategories[];
-  similarAuctions?: Auction[];
+  similarAuctions?: any[];
 }
 
 const fetcher = async (url: string) => {
@@ -22,11 +20,20 @@ export function useSimilarItems(
   page: number = 1,
   limit: number = 8
 ) {
-  const url = auctionId
-    ? `/api/auctions/${auctionId}/similar?page=${page}&limit=${limit}${
-        lotId ? `&lotId=${lotId}` : ""
-      }`
-    : null;
+  if (!auctionId) {
+    // Return loading state instead of disabling SWR
+    return {
+      similarLots: [],
+      similarAuctions: [],
+      isLoading: true,
+      isError: false,
+    };
+  }
+
+  let url = `/api/auctions/${auctionId}/similar?page=${page}&limit=${limit}`;
+  if (lotId) {
+    url += `&lotId=${lotId}`;
+  }
 
   const { data, error, isLoading } = useSWR<SimilarItemsResponse>(
     url,
@@ -37,8 +44,8 @@ export function useSimilarItems(
   );
 
   return {
-    similarLots: data?.similarLots as LotWithCategories[],
-    similarAuctions: data?.similarAuctions as Auction[],
+    similarLots: data?.similarLots as LotWithCategories[] || [],
+    similarAuctions: data?.similarAuctions || [],
     isLoading,
     isError: error,
   };

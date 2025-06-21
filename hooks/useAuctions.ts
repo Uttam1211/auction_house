@@ -94,7 +94,13 @@ export function useAuctions({
 // Hook for fetching a single auction by ID
 export function useAuction(auctionId: string, initialData?: any) {
   if (!auctionId) {
-    throw new Error("auctionId is required for useAuction");
+    // Return loading state instead of throwing
+    return {
+      auction: null,
+      isLoading: true,
+      isError: false,
+      mutate: () => {},
+    };
   }
 
   const url = `/api/auctions/${auctionId}`;

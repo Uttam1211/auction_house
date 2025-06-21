@@ -22,7 +22,16 @@ export function useLots({
   search,
 }: UseLotsProps) {
   if (!auctionId) {
-    throw new Error("auctionId is required for useLots");
+    // Return loading state instead of throwing
+    return {
+      lots: [],
+      categories: [],
+      subcategories: [],
+      pagination: undefined,
+      isLoading: true,
+      isError: false,
+      mutate: () => {},
+    };
   }
 
   const queryParams = new URLSearchParams({
@@ -57,7 +66,13 @@ export function useLots({
 // Hook for fetching a single lot by ID
 export function useLot(auctionId: string, lotId: string, initialData?: any) {
   if (!auctionId || !lotId) {
-    throw new Error("Both auctionId and lotId are required for useLot");
+    // Return loading state instead of throwing
+    return {
+      lot: null,
+      isLoading: true,
+      isError: false,
+      mutate: () => {},
+    };
   }
 
   const url = `/api/auctions/${auctionId}/lots/${lotId}`;

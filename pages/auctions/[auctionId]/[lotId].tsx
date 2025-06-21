@@ -28,25 +28,20 @@ import Loading from "@/components/Loading";
 export default function LotPage() {
   const router = useRouter();
   const { auctionId, lotId } = router.query;
-  // Default items per page for similar lots
-  // This can be adjusted based on your requirements
-  if (!auctionId || !lotId) {
-  return null; // Or show a loading state, or throw a controlled error
-}
   const ITEMS_PER_PAGE = 8;
   const [page, setPage] = useState(1);
-  const { lot, isLoading, isError } = useLot(
-    (auctionId as string) || "",
-    (lotId as string) || ""
-  );
-  const { similarLots, isLoading: isLoadingSimilar } = useSimilarItems(
-    (auctionId as string) || "",
-    (lotId as string) || "",
-    page,
-    ITEMS_PER_PAGE
-  );
 
-  if (!router.isReady || !auctionId || !lotId) {
+  // Only call hooks when IDs are available
+  const ready = router.isReady && auctionId && lotId;
+  const { lot, isLoading, isError } = ready
+    ? useLot(auctionId as string, lotId as string)
+    : { lot: null, isLoading: true, isError: false };
+  const { similarLots, isLoading: isLoadingSimilar } = ready
+    ? useSimilarItems(auctionId as string, lotId as string, page, ITEMS_PER_PAGE)
+    : { similarLots: [], isLoading: true };
+
+  // Early return for router not ready or missing params
+  if (!ready) {
     return <Loading />;
   }
 
